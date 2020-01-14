@@ -1,9 +1,9 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Button,Input } from '@tarojs/components'
+import { View, Button,Input,Image } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
-
 import { add, minus, asyncAdd } from '../../actions/counter'
+import header from '../../static/header.png';
 
 import './index.less'
 
@@ -71,14 +71,16 @@ class Index extends Component {
   render () {
     return (
       <View className='index'>
-          <View className="header"></View>
+          <View className="header">
+            <Image className="image" src={header}/>
+          </View>
           <View className="content">
             <View className="box">
               <View className="list">
-                <Input className="input" type='text' placeholder='请输入手机号' focus/>
+                <Input className="input" type='text' placeholder='请输入手机号'/>
               </View>
               <View className="list">
-                <Input className="input" type='password' placeholder='请输入密码' focus/>
+                <Input className="input" type='password' placeholder='请输入密码'/>
               </View>
               <View className="wrapper">
                 <View className="left"><Input className="code" placeholder="请输入验证码"/></View>
