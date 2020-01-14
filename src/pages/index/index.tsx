@@ -78,13 +78,13 @@ class Index extends Component {
                 <Input className="input" type='text' placeholder='请输入手机号' focus/>
               </View>
               <View className="list">
-                <Input className="input" type='password' placeholder='请输入手机号' focus/>
+                <Input className="input" type='password' placeholder='请输入密码' focus/>
               </View>
               <View className="wrapper">
                 <View className="left"><Input className="code" placeholder="请输入验证码"/></View>
                 <View className="right"></View>
-                
               </View>
+              <View className="btngroup"><Button className="btn">登录</Button></View>
             </View>
           </View>
       </View>
