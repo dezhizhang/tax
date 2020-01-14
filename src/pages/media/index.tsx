@@ -1,6 +1,6 @@
-import { ComponentClass } from 'react'
+import { ComponentClass, version } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Button,Input,Image } from '@tarojs/components'
+import { View, Button,Input,Image,Text } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { add, minus, asyncAdd } from '../../actions/counter'
 import header from '../../static/header.png';
@@ -72,7 +72,29 @@ class Index extends Component {
   render () {
     return (
       <View className='media'>
-          media
+          <View className="box">
+            <View className="list">
+              <View className="left"></View>
+              <View className="right">
+                <View className="title">我是标题</View>
+                <Text className="content">内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</Text>
+              </View>
+            </View>
+            <View className="list">
+              <View className="left"></View>
+              <View className="right">
+                <View className="title">我是标题</View>
+                <Text className="content">内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</Text>
+              </View>
+            </View>
+            <View className="list">
+              <View className="left"></View>
+              <View className="right">
+                <View className="title">我是标题</View>
+                <Text className="content">内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</Text>
+              </View>
+            </View>
+          </View>
       </View>
     )
   }

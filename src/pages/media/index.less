@@ -1,4 +1,41 @@
 .media {
-    
-  }
+  flex-direction: column;
+  width: 100%;  
+  background: #eeee;
+  .box{
+    padding: 15px 36px 15px 15px;
+    .list{
+      width: 100%;
+      height: 200px;
+      margin-bottom: 15px;
+      background: red;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: row;
+      padding: 10px;
+      overflow: hidden;
+      text-overflow :ellipsis; 
+   
+      .left{
+        width: 200px;
+        height: 200px;
+        background: yellow;
+        min-width: 200px;
+      }
+      .right{
+        flex: 1;
+        height: 100%;
+        margin-left: 10px;
+        .title{
+          
+        }
+        .content{
+
+        }
+      }
+      
+    }
+
+  }  
+}
   
