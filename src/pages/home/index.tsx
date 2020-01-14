@@ -62,9 +62,25 @@ class Index extends Component {
 
   render () {
     return (
-      <View className='home'>
-         home
-      </View>
+        <View className='home'>
+            <View className="box">
+                <View className="header">
+                        11111
+                </View>
+                <View className="category">
+                    <View className="item">
+                        <View className="wrapper-image">
+
+                        </View>
+                        <View>记帐</View>
+                    </View>
+                    <View className="item"></View>
+                    <View className="item"></View>
+                    <View className="item"></View>
+                </View>
+                <View className="bottom"></View>
+            </View>
+        </View>
     )
   }
 }
