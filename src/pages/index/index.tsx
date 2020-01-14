@@ -53,9 +53,10 @@ interface Index {
   }
 }))
 class Index extends Component {
-
     config: Config = {
-    navigationBarTitleText: '登录'
+    navigationBarTitleText: '',
+    navigationBarBackgroundColor:"#5C86FF"
+    
   }
 
   componentWillReceiveProps (nextProps) {
