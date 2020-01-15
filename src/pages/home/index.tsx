@@ -1,10 +1,8 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Button,Input,Image } from '@tarojs/components'
-import { connect } from '@tarojs/redux'
-import { add, minus, asyncAdd } from '../../actions/counter'
-import header from '../../static/header.png';
-
+import { View,Image,Swiper,SwiperItem, } from '@tarojs/components'
+import { focusInfo, } from '../../service/api'
+import { baseURL } from '../../utils/tools'
 import './index.less'
 
 
@@ -30,28 +28,28 @@ interface Index {
   props: IProps;
 }
 
-@connect(({ counter }) => ({
-  counter
-}), (dispatch) => ({
-  add () {
-    dispatch(add())
-  },
-  dec () {
-    dispatch(minus())
-  },
-  asyncAdd () {
-    dispatch(asyncAdd())
-  }
-}))
 class Index extends Component {
     config: Config = {
     navigationBarTitleText: '',
     navigationBarBackgroundColor:"#5C86FF"
     
   }
+  state = {
+    focusArr:[],
+  }
 
   componentWillReceiveProps (nextProps) {
     console.log(this.props, nextProps)
+  }
+  componentDidMount() {
+    this.getFocusData();
+  }
+  getFocusData = async() => {
+      let res = await focusInfo();
+      if(res.data.code == 200) {
+        let focusArr = res.data.data;
+        this.setState({ focusArr });
+      }
   }
 
   componentWillUnmount () { }
@@ -61,11 +59,27 @@ class Index extends Component {
   componentDidHide () { }
 
   render () {
+    const { focusArr } = this.state;
     return (
         <View className='home'>
             <View className="box">
                 <View className="header">
-                        11111
+                <Swiper
+                  className='test-h'
+                  indicatorColor='#999'
+                  indicatorActiveColor='#333'
+                  circular
+                  indicatorDots
+                  autoplay>
+                 
+                  {focusArr.map((item,index) => {
+                    return <SwiperItem key={index} >
+                      <View className="focus">
+                        <Image className="focus-image" src={`${baseURL}${item.focus_img}`}/>
+                      </View>
+                    </SwiperItem>
+                  })}
+                </Swiper> 
                 </View>
                 <View className="category">
                     <View className="item">

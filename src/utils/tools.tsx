@@ -28,7 +28,3 @@ export const showModal = (params) => {
         confirmText:params.confirmText
     })
 }
-//生成用户唯一id
-export const userInfoId =(number) => {
-   return Number(Math.random().toString().substr(3,number) + Date.now()).toString(36)
-} 
