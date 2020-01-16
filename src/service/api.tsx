@@ -6,7 +6,7 @@ export async function focusInfo() {
 }
 //媒体
 export async function mediaInfo(params) {
-  return request(`${Config.API_HOST}//api/v1/media/list?page=${params.page}`)
+  return request(`${Config.API_HOST}/api/v1/media/list?page=${params.page}`)
 }
 //提交维修
 export async function uploadInfo(params) {

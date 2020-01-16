@@ -62,30 +62,22 @@ class Index extends Component {
   componentDidHide () { }
 
   render () {
+    const { mediaArr } = this.state;
     return (
       <View className='media'>
           <View className="box">
-            <View className="list">
-              <View className="left"></View>
-              <View className="right">
-                <View className="title">我是标题</View>
-                <Text className="content">内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</Text>
+            {/*  */}
+            {
+              mediaArr&&mediaArr.map((item,index) => {
+                return <View className="list" key={index}>
+                <View className="left"><Image className="img" src={`${baseURL}${item.media_img}`}/></View>
+                <View className="right">
+                  <View className="title">{item.title}</View>
+                  <Text className="content">{item.description}</Text>
+                </View>
               </View>
-            </View>
-            <View className="list">
-              <View className="left"></View>
-              <View className="right">
-                <View className="title">我是标题</View>
-                <Text className="content">内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</Text>
-              </View>
-            </View>
-            <View className="list">
-              <View className="left"></View>
-              <View className="right">
-                <View className="title">我是标题</View>
-                <Text className="content">内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</Text>
-              </View>
-            </View>
+              })
+            }
           </View>
       </View>
     )
