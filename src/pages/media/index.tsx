@@ -66,14 +66,13 @@ class Index extends Component {
     return (
       <View className='media'>
           <View className="box">
-            {/*  */}
             {
               mediaArr&&mediaArr.map((item,index) => {
                 return <View className="list" key={index}>
                 <View className="left"><Image className="img" src={`${baseURL}${item.media_img}`}/></View>
                 <View className="right">
                   <View className="title">{item.title}</View>
-                  <Text className="content">{item.description}</Text>
+                  <View className="content">{item.description}</View>
                 </View>
               </View>
               })
