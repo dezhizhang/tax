@@ -51,6 +51,7 @@ class Index extends Component {
     state = {
       focusData:[],
       advertData:[],
+      hotData:[],
       listData:[],
       listArr:[],
       page:1,
@@ -89,13 +90,14 @@ class Index extends Component {
   componentDidMount() {
     this.getFocusData();
     this.getadvertData();
+    this.getProductHotData();
     this.getProductListData();
   }
   getFocusData = async () =>  {
      const result = await focusInfo();
      const data = result.data;
      if(data.code == 200) {
-       let focusData = data.data;
+       let focusData = data.data
        this.setState({focusData})
      }
   }
@@ -106,6 +108,14 @@ class Index extends Component {
        let advertData = data.data;
        this.setState({advertData})
      }
+  }
+  getProductHotData = async () => {
+    const result = await getProductHot();
+    const data = result.data;
+    if(data.code == 200) {
+      let hotData = data.data;
+      this.setState({hotData});
+    }
   }
   getProductListData = async () =>  {
     const { page } = this.state;
@@ -166,8 +176,8 @@ class Index extends Component {
   componentDidHide () { }
 
   render () {
-    const { focusData,advertData,listData,classifyArr } = this.state;
-
+    const { focusData,advertData,hotData,listData,classifyArr } = this.state;
+    let hotArr = this.arrTrans(3,hotData); //3代表二维数据有几个
   
     return (
       <ScrollView className='index'
@@ -209,6 +219,42 @@ class Index extends Component {
                 return (<Image className="advert_image" key={index} mode='aspectFill' src={`${baseURL}${item.advert_img}`}></Image>)
               })}
             </View>
+            <View className="hot">
+              <View className="top">
+                 <View className="left">热门产品</View>
+                 <View className="right">MORE</View>
+              </View>
+              <View className="bottom">
+                <Swiper
+                  circular
+                  autoplay
+                  >
+                  {hotArr.map((item,index) => {
+                    return <SwiperItem key={index}>
+                     <View className='swiper-item'>
+                       {item.map((list,number) => {
+                         return <View className='item' key={number} onClick={() => this.handleToDetail(list)}>
+                         <View className="item-top">
+                             <Image className="image" mode='aspectFill'  src={`${baseURL}${list.product_url}`}/>
+                         </View>
+                         <View className="item-bottom">
+                          <View className="bottom-top">{list.description}</View>
+                          <View className="bottom-bottom">
+                            <View className="bottom-left">￥{list.price}</View>
+                          </View>
+                         </View>
+                      </View>
+                       })}
+                     </View>
+                   </SwiperItem>
+                  })}
+                </Swiper>
+              </View>
+            </View>
+          </View>
+          <View className="product">
+             主打产品
+          </View>
           <View className='product_item'>
           <View className="product_wrapper">
             {listData.map((item,index) => {

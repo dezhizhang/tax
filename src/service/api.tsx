@@ -15,8 +15,8 @@ export async function uploadInfo(params) {
 
 //购物车
 export async function userInfoCartSave(params) {
-  return request(`${Config.API_HOST}/api/cart/save`,{
-    method:'POST',
+    return request(`${Config.API_HOST}/api/cart/save`,{
+      method:'POST',
     body:params
   });
 }
