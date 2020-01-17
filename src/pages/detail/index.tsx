@@ -61,20 +61,14 @@ class Index extends Component {
 
   componentDidHide () { }
 
-  handleDetail = (item) => {
-    Taro.navigateTo({
-      url: `../detail/index?id=${item._id}`
-    })
-  }
-
   render () {
     const { mediaArr } = this.state;
     return (
-      <View className='media'>
+      <View className='detail'>
           <View className="box">
             {
               mediaArr&&mediaArr.map((item,index) => {
-                return <View className="list" key={index} onClick={() => this.handleDetail(item)}>
+                return <View className="list" key={index}>
                 <View className="left"><Image className="img" src={`${baseURL}${item.media_img}`}/></View>
                 <View className="right">
                   <View className="title">{item.title}</View>

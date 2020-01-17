@@ -13,6 +13,7 @@ class App extends Component {
       "pages/home/index",
       'pages/index/index',
       "pages/my/index",
+      "pages/detail/index",
 
     ],
     window: {
