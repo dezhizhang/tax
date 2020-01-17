@@ -1,5 +1,335 @@
-.my {
-    flex-direction: column;
-    width: 100%;
+.my{
+  width: 100%;
+  height: 100%;
+  background: #F6F6FA;
+  .header{
+      width: 100%;
+      height: 472px;
+      position: relative;
+      margin-bottom: 20px;
+      background: #fff;
+      .header_top{
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 296px;
+          width: 100%;
+          .header_image{
+              width: 100%;
+              height: 296px;
+              .image{
+                  width: 100%;
+                  height: 100%;
+                  display: block;
+              }
+
+          }
+          .header_avatar{
+              display: inline-block;
+              position: absolute;
+              width: 114px;
+              height: 114px;
+              left: 42px;
+              top: 20px;
+              border-radius: 50%;
+              z-index: 10;
+              .avatar{
+                  width: 100%;
+                  height: 100%;
+                  display: inline-block;
+                  border-radius: 50%;
+              }
+            
+          }
+          .header_user{
+              display: inline-block;
+              position: absolute;
+              left: 195px;
+              top: 30px;
+              color: #fff;
+              overflow: hidden;
+              .user_name{
+                  font-size:36px;
+                  font-family:'PingFang SC';
+                  margin-bottom: 12px;
+              }
+              .user_address{
+                  font-size: 24px;
+              }
+          }
+          .header_right{
+              position: absolute;
+              right: 0px;
+              top: 30px;
+              .right{
+                  width: 200px;
+                  width:200px;
+                  height:56px;
+                  line-height: 50px;
+                  background:linear-gradient(125deg,rgba(241,183,18,1),rgba(228,176,29,1),rgba(254,188,11,1));
+                  border-top-left-radius: 28px;
+                  border-bottom-left-radius: 28px;
+                  overflow: hidden;
+                  .icon{
+                      width: 28px;
+                      height: 28px;
+                      display: inline-block;
+                      color: #fff;
+                      margin-left: 35px;
+                      margin-top: 6px;
+                      float: left;
+                      .image{
+                          width: 100%;
+                          height: 100%;
+                          display: inline-block;
+                      }
+                  }
+                  .text{
+                      display: inline-block;
+                      color: #fff;
+                      margin-left: 10px;
+                      font-size: 24px;
+
+                  }
+
+              }
+          }
+      }
+      .header_content{
+          width: 100%;
+          height: 302px;
+          position: absolute;
+          left: 0px;
+          top: 156px;
+          z-index: 20;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 32px;
+          .content_card{
+              width:90%;
+              height: 90%;
+              background:#fff;
+              border-radius:20px;
+              z-index: 30;
+              box-shadow: #eee;
+              box-shadow: 0 0 14px 0 rgba(0,0,0,0.30);
+              .card_info{
+                  padding: 40px 40px;
+                  .info_box{
+                      width: 100%;
+                      height: 100%;
+                      .box_top{
+                          height: 100px;
+                          border-bottom: 2px dashed #D9DCEE;
+                          display: flex;
+                          justify-content: center;
+                          align-items: center;
+                          .top_item{
+                              flex: 1;
+                              height: 100%;
+                              margin-left: 100px;
+                              text-align: center;
+                              color: '#4D4D4D';
+                              .item_top{
+                                  font-size: 24px;
+                                  font-family: 'PingFang SC';
+                                  margin-bottom: 10px;
+                              }
+                              .item_bottom{
+                                  font-size: 36px;
+                              }
+                          }
+                          .top_item:nth-of-type(1){
+                              margin-left: 0px;
+                          }
+
+                      }
+                      .box-bottom{
+                          padding: 20px 60px 0px 60px;
+                          .bottom-wrapper{
+                              display: flex;
+                              justify-content: center;
+                              align-items: center;
+                              .bottom-item{
+                                  flex: 1;
+                                  text-align: center;
+                                  flex-direction: column;
+                                  display: flex;
+                                  align-items: center;
+                                  .item-top{
+                                      text-align: center;
+                                      width: 64px;
+                                      height: 48px;
+                                      overflow: hidden;
+                                      margin-bottom: 10px;
+                                      .image{
+                                          width: 100%;
+                                          height: 100%;
+                                          overflow: hidden;
+                                      }
+                                  }
+                                  .item-bottom{
+                                      font-size: 24px;
+                                  }
+                              }
+                              .bottom-item:nth-of-type(2){
+                                 margin-left: 240px;
+                              }
+
+                          }
+                        
+
+                      }
+                  }
+              }
+          }
+          
+      }
   }
-  
+  .content{
+      margin-bottom: 20px;
+      .content-item{
+          width: 100%;
+          height: 120px;
+          line-height: 120px;
+          background: #fff;
+          border-bottom: 2px solid #F6F6FA;
+          display: flex;
+          .item{
+              width: 100%;
+              height: 100%;
+              margin-left: 52px;
+              margin-right: 52px;
+              line-height: 120px;
+              display: flex;
+              overflow: hidden;
+              .icon-left{
+                  width: 38px;
+                  height: 40px;
+                  margin-top: 40px;
+                  .image{
+                      width: 100%;
+                      height: 100%;
+                      display: block;
+                  }
+              }
+              .text-left{
+                  margin-left: 28px;
+                  font-size:30px;
+                  font-family:'PingFang SC';
+                  color: #333333;
+
+              }
+              .text-right{
+                 flex: 1;
+                 text-align: right;
+                 margin-right: 28px;
+                 position: relative;
+                 font-size: 26px;
+                 color: #666;
+                 .text-number{
+                     width: 48px;
+                     height: 26px;
+                     line-height: 26px;
+                     text-align: center;
+                     background:linear-gradient(90deg,rgba(253,95,117,1),rgba(244,70,70,1));
+                     border-radius: 13px;
+                     color: #fff;
+                     font-size: 22px;
+                     position: absolute;
+                     right: 0px;
+                     top: 52px;
+
+                 }
+
+              }
+              .icon-right{
+               width: 10px;
+               height: 20px;
+               margin-top: 54px;
+               .image{
+                   width: 100%;
+                   height: 100%;
+                   display: block;
+                  
+               }
+              }
+             
+          }
+      }
+  }
+  .footer{
+      .content-item{
+          width: 100%;
+          height: 120px;
+          line-height: 120px;
+          background: #fff;
+          border-bottom: 2px solid #F6F6FA;
+          display: flex;
+          .item{
+              width: 100%;
+              height: 100%;
+              margin-left: 52px;
+              margin-right: 52px;
+              line-height: 120px;
+              display: flex;
+              overflow: hidden;
+              .icon-left{
+                  width: 38px;
+                  height: 40px;
+                  margin-top: 40px;
+                  .image{
+                      width: 100%;
+                      height: 100%;
+                      display: block;
+                  }
+              }
+              .text-left{
+                  margin-left: 28px;
+                  font-size:30px;
+                  font-family:'PingFang SC';
+                  color: #333333;
+
+              }
+              .text-right{
+                 flex: 1;
+                 text-align: right;
+                 margin-right: 28px;
+                 position: relative;
+                 font-size: 26px;
+                 color: #666;
+                 .text-number{
+                     width: 48px;
+                     height: 26px;
+                     line-height: 26px;
+                     text-align: center;
+                     background:linear-gradient(90deg,rgba(253,95,117,1),rgba(244,70,70,1));
+                     border-radius: 13px;
+                     color: #fff;
+                     font-size: 22px;
+                     position: absolute;
+                     right: 0px;
+                     top: 52px;
+
+                 }
+
+              }
+              .icon-right{
+               width: 10px;
+               height: 20px;
+               margin-top: 54px;
+               .image{
+                   width: 100%;
+                   height: 100%;
+                   display: block;
+                  
+               }
+              }
+             
+          }
+      }
+  }
+ 
+
+}

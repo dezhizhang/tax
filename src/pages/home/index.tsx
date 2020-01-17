@@ -3,7 +3,7 @@ import { connect } from '@tarojs/redux'
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Swiper, SwiperItem,ScrollView,Image  } from '@tarojs/components'
 import { add, minus, asyncAdd } from '../../actions/counter'
-import { focusInfo,getAdvertInfo,getProductHot,getProductList } from '../../service/api'
+import { focusInfo,advertInfo,getProductHot,getProductList } from '../../service/api'
 import { baseURL,showLoading,hideLoading } from '../../utils/tools'
 import category from '../../images/category.png'
 import facility from '../../images/facility.png'
@@ -57,17 +57,17 @@ class Index extends Component {
       page:1,
       classifyArr:[
         {
-          name:'办公',
+          name:'记帐',
           main_id:'1',
           src:category
         },
         {
-          name:'设备',
+          name:'报税',
           main_id:'2',
           src:facility
         },
         {
-          name:'文具',
+          name:'开发票',
           main_id:'3',
           src:stationery
         },
@@ -102,7 +102,7 @@ class Index extends Component {
      }
   }
   getadvertData = async () =>  {
-     const result = await getAdvertInfo();
+     const result = await advertInfo();
      const data = result.data;
      if(data.code == 200) {
        let advertData = data.data;
@@ -112,6 +112,7 @@ class Index extends Component {
   getProductHotData = async () => {
     const result = await getProductHot();
     const data = result.data;
+
     if(data.code == 200) {
       let hotData = data.data;
       this.setState({hotData});

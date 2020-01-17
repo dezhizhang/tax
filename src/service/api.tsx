@@ -12,6 +12,10 @@ export async function mediaInfo(params) {
 export async function mediaDetailInfo(params) {
   return request(`${Config.API_HOST}/api/v1/media/detail/info?id=${params.id}`)
 }
+//广告图
+export async function advertInfo() {
+  return request(`${Config.API_HOST}/api/v1/advert/info`)
+}
 //提交维修
 export async function uploadInfo(params) {
   return uploadFile(`${Config.API_HOST}/api/maintain/upload`,params);
