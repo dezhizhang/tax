@@ -8,6 +8,10 @@ export async function focusInfo() {
 export async function mediaInfo(params) {
   return request(`${Config.API_HOST}/api/v1/media/list?page=${params.page}`)
 }
+//媒体详情
+export async function mediaDetailInfo(params) {
+  return request(`${Config.API_HOST}/api/v1/media/detail/info?id=${params.id}`)
+}
 //提交维修
 export async function uploadInfo(params) {
   return uploadFile(`${Config.API_HOST}/api/maintain/upload`,params);

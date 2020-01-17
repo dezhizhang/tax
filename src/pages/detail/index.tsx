@@ -1,7 +1,7 @@
 import { ComponentClass, } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Button,Input,Image,Text } from '@tarojs/components'
-import { mediaInfo, } from '../../service/api'
+import { mediaDetailInfo, } from '../../service/api'
 import { baseURL } from '../../utils/tools'
 import './index.less'
 
@@ -36,7 +36,7 @@ class Index extends Component {
     
   }
   state = {
-    mediaArr:[],
+    detail:{},
   }
 
   componentWillReceiveProps (nextProps) {
@@ -44,39 +44,36 @@ class Index extends Component {
   }
 
   componentDidMount() {
-    this.getMediaData();
+  
   }
 
-  getMediaData = async() => {
-    let res = await mediaInfo({page:1});
+  componentWillMount () {
+    let params = this.$router.params;
+    this.detailData(params);
+  }
+
+  detailData = async(params) => {
+    let res = await mediaDetailInfo(params);
     if(res.data.code == 200) {
-      let mediaArr = res.data.data;
-      this.setState({ mediaArr });
+        let detail = res.data.data;
+        this.setState({ detail });
     }
   }
 
   componentWillUnmount () { }
+
 
   componentDidShow () { }
 
   componentDidHide () { }
 
   render () {
-    const { mediaArr } = this.state;
+    const { detail } = this.state;
+    console.log(detail);
     return (
       <View className='detail'>
-          <View className="box">
-            {
-              mediaArr&&mediaArr.map((item,index) => {
-                return <View className="list" key={index}>
-                <View className="left"><Image className="img" src={`${baseURL}${item.media_img}`}/></View>
-                <View className="right">
-                  <View className="title">{item.title}</View>
-                  <View className="content">{item.description}</View>
-                </View>
-              </View>
-              })
-            }
+          <View className="header">
+            
           </View>
       </View>
     )
