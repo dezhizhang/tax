@@ -73,7 +73,10 @@ class Index extends Component {
     return (
       <View className='detail'>
           <View className="header">
-            
+              <Image src={`${baseURL}${detail.media_img}`} className="img"/>
+          </View>
+          <View className="content">
+             <Text>{detail.description}</Text>
           </View>
       </View>
     )
