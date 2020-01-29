@@ -3,6 +3,7 @@ import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Button,Input,Image } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { add, minus, asyncAdd } from '../../actions/counter'
+import { showToast } from '../../utils/tools'
 import header from '../../static/header.png'
 import './index.less'
 
@@ -65,9 +66,16 @@ class Index extends Component {
   componentDidHide () { }
   handleUserName = (ev) => {
     let value = ev.target.value;
-    this.setState({
-      username:value
-    })
+    let reg = /^((13[0-9])|(17[0-1,6-8])|(15[^4,\\D])|(18[0-9]))\d{8}$/;
+    if(!reg.test(value)) {
+      showToast({title:"手机号不合法",icon:"none"});
+      return;
+    } else {
+      this.setState({
+        phone:value
+      })
+    }
+   
   }
   handlePassword = (ev) => {
     let value = ev.target.value;
@@ -82,7 +90,7 @@ class Index extends Component {
       password
     }
   }
-  
+  //倒计时
   goGetCode =() => {
       let that = this;
       let time = 60;
