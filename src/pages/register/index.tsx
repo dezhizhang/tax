@@ -50,6 +50,8 @@ class Index extends Component {
   state = {
     username:"",
     password:"",
+    msg:"发送验证码",
+    disabled:false
   }
 
   componentWillReceiveProps (nextProps) {
@@ -79,9 +81,33 @@ class Index extends Component {
       username,
       password
     }
-
   }
+  
+  goGetCode =() => {
+      let that = this;
+      let time = 60;
+      that.setState({
+        msg: '60秒后重发',
+        disabled: true
+      })
+      var Interval = setInterval(function() {
+        time--;
+        if (time>0){
+          that.setState({
+            msg: time + '秒后重发'
+          })
+        }else{
+          clearInterval(Interval);
+          that.setState({
+            msg: '获取验证码',
+            disabled: false
+          })
+        }
+      },1000)
+  }
+
   render () {
+    const { msg,disabled } = this.state;
     return (
       <View className='index'>
           <View className="header">
@@ -99,11 +125,11 @@ class Index extends Component {
                   <View className="list_left">
                     <Input className="input" maxLength="6" type="number" placeholder="请输入验证码"/>
                   </View>
-                  <View className="list_right">
-                     <View className="btn">发送验证码</View> 
+                  <View className="list_right" >
+                     <Button style={{background:disabled?"#ccc":""}}  onClick={this.goGetCode} disabled={disabled} className="btn">{msg}</Button> 
                   </View>
               </View>
-              <View className="btngroup bottom" onClick={this.handleLogin}><Button className="btn">确认注册</Button></View>
+              <View className="btngroup bottom" onClick={this.handleLogin}><Button className="btn">确  认</Button></View>
             </View>
           </View>
       </View>
