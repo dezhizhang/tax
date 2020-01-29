@@ -97,7 +97,7 @@ class Index extends Component {
               </View>
               <View className="code bottom">
                   <View className="list_left">
-                    <Input className="input" type="number" placeholder="请输入验证码"/>
+                    <Input className="input" maxLength="6" type="number" placeholder="请输入验证码"/>
                   </View>
                   <View className="list_right">
                      <View className="btn">发送验证码</View> 
