@@ -100,7 +100,7 @@ class Index extends Component {
                     <Input className="input" type="number" placeholder="请输入验证码"/>
                   </View>
                   <View className="list_right">
-                      发送验证码
+                     <View className="btn">发送验证码</View> 
                   </View>
               </View>
               <View className="btngroup bottom" onClick={this.handleLogin}><Button className="btn">确认注册</Button></View>
