@@ -3,6 +3,8 @@ import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Button,Input,Image } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { add, minus, asyncAdd } from '../../actions/counter'
+import { userLogin } from '../../service/api'
+import { showToast } from '../../utils/tools'
 import header from '../../static/header.png'
 import './index.less'
 
@@ -48,7 +50,7 @@ class Index extends Component {
     
   }
   state = {
-    username:"",
+    phone:"",
     password:"",
   }
 
@@ -63,8 +65,16 @@ class Index extends Component {
   componentDidHide () { }
   handleUserName = (ev) => {
     let value = ev.target.value;
+    let reg = /^((13[0-9])|(17[0-1,6-8])|(15[^4,\\D])|(18[0-9]))\d{8}$/;
+    if(!reg.test(value)) {
+      showToast({
+        title:"手机号不合法",
+        icon:"error",
+      });
+      return
+    }
     this.setState({
-      username:value
+      phone:value
     })
   }
   handlePassword = (ev) => {
@@ -73,13 +83,25 @@ class Index extends Component {
       password:value
     })
   }
-  handleLogin = () => {
-    let { username,password } = this.state;
+  handleLogin = async() => {
+    let { phone,password } = this.state;
+   
     let params = {
-      username,
+      phone,
       password
     }
-
+    let res = await userLogin(params);
+    let data = res.data;
+    if(data.code) {
+      Taro.switchTab({
+        url:'../home/index'
+      })
+    } else {
+      showToast({
+        title:data.msg,
+        icon:"error"
+      })
+    }
   }
 
   handleRegister = () => {
@@ -97,7 +119,7 @@ class Index extends Component {
           <View className="content">
             <View className="box">
               <View className="list">
-                <Input className="input" onChange={this.handleUserName} type='text' placeholder='请输入用户名/手机号'/>
+                <Input className="input" onChange={this.handleUserName} type='text' placeholder='请输入手机号'/>
               </View>
               <View className="list bottom">
                 <Input className="input" onChange={this.handlePassword}  type='password' placeholder='请输入密码'/>

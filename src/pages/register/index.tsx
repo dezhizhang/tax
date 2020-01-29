@@ -4,7 +4,7 @@ import { View, Button,Input,Image } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { add, minus, asyncAdd } from '../../actions/counter'
 import { showToast } from '../../utils/tools'
-import { userCode } from '../../service/api'
+import { userCode,userRegister } from '../../service/api'
 import header from '../../static/header.png'
 import './index.less'
 
@@ -53,6 +53,7 @@ class Index extends Component {
     phone:"",
     password:"",
     msg:"发送验证码",
+    phone_code:"",
     disabled:false
   }
 
@@ -84,12 +85,36 @@ class Index extends Component {
       password:value
     })
   }
-  handleLogin = () => {
-    let { phone,password } = this.state;
+  handleRegister = async() => {
+    let { phone,password,phone_code } = this.state;
     let params = {
       phone,
-      password
+      password,
+      phone_code
     }
+    let res = await userRegister(params);
+    let data = res.data;
+    if(data.code == 200) {
+      showToast({
+        title:res.data.msg,
+        icon:"success"
+      });
+      Taro.reLaunch({
+        url:'../index/index'
+      })
+      
+    } else {
+      showToast({
+        title:data.msg,
+        icon:"wrang"
+      })
+    }
+  }
+  handlePhoneCode = (ev) => {
+    let value = ev.target.value;
+    this.setState({
+      phone_code:value
+    })
   }
   //倒计时
   goGetCode = async() => {
@@ -145,13 +170,13 @@ class Index extends Component {
               </View>
               <View className="code bottom">
                   <View className="list_left">
-                    <Input className="input" maxLength="6" type="number" placeholder="请输入验证码"/>
+                    <Input onChange={this.handlePhoneCode} className="input" maxLength="6" type="number" placeholder="请输入验证码"/>
                   </View>
                   <View className="list_right" >
                      <Button style={{background:disabled?"#ccc":""}}  onClick={this.goGetCode} disabled={disabled} className="btn">{msg}</Button> 
                   </View>
               </View>
-              <View className="btngroup bottom" onClick={this.handleLogin}><Button className="btn">确  认</Button></View>
+              <View className="btngroup bottom" onClick={this.handleRegister}><Button className="btn">确  认</Button></View>
             </View>
           </View>
       </View>

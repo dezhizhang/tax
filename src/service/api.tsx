@@ -20,6 +20,20 @@ export async function advertInfo() {
 export async function userCode(params) {
   return request(`${Config.API_HOST}/api/v1/user/code?phone=${params.phone}`)
 }
+//用户注册
+export async function userRegister(params) {
+  return request(`${Config.API_HOST}/api/v1/user/register`,{
+    method:'POST',
+    body:params
+  })
+}
+//用户登录
+export async function userLogin(params) {
+  return request(`${Config.API_HOST}/api/v1/user/login`,{
+    method:"POST",
+    body:params
+  })
+}
 //提交维修
 export async function uploadInfo(params) {
   return uploadFile(`${Config.API_HOST}/api/maintain/upload`,params);
