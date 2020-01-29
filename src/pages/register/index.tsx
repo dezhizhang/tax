@@ -81,11 +81,6 @@ class Index extends Component {
     }
 
   }
-
-  handleRegister = () => {
-   
-  }
-
   render () {
     return (
       <View className='index'>
@@ -97,11 +92,18 @@ class Index extends Component {
               <View className="list">
                 <Input className="input" onChange={this.handleUserName} type='text' placeholder='请输入手机号'/>
               </View>
-              <View className="list bottom">
+              <View className="list">
                 <Input className="input" onChange={this.handlePassword}  type='password' placeholder='请输入密码'/>
               </View>
+              <View className="code bottom">
+                  <View className="list_left">
+                    <Input className="input" type="number" placeholder="请输入验证码"/>
+                  </View>
+                  <View className="list_right">
+                      发送验证码
+                  </View>
+              </View>
               <View className="btngroup bottom" onClick={this.handleLogin}><Button className="btn">确认注册</Button></View>
-              {/* <View className="btngroup" onClick={this.handleRegister}><Button className="btn reg">注 册</Button></View> */}
             </View>
           </View>
       </View>
