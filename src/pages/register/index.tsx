@@ -43,7 +43,7 @@ interface Index {
 }))
 class Index extends Component {
     config: Config = {
-    navigationBarTitleText: '登录',
+    navigationBarTitleText: '注册',
     navigationBarBackgroundColor:"#5C86FF"
     
   }
@@ -83,9 +83,7 @@ class Index extends Component {
   }
 
   handleRegister = () => {
-    Taro.navigateTo({
-      url:"../register/index"
-    });
+   
   }
 
   render () {
@@ -97,13 +95,13 @@ class Index extends Component {
           <View className="content">
             <View className="box">
               <View className="list">
-                <Input className="input" onChange={this.handleUserName} type='text' placeholder='请输入用户名/手机号'/>
+                <Input className="input" onChange={this.handleUserName} type='text' placeholder='请输入手机号'/>
               </View>
               <View className="list bottom">
                 <Input className="input" onChange={this.handlePassword}  type='password' placeholder='请输入密码'/>
               </View>
-              <View className="btngroup bottom" onClick={this.handleLogin}><Button className="btn">登 录</Button></View>
-              <View className="btngroup" onClick={this.handleRegister}><Button className="btn reg">注 册</Button></View>
+              <View className="btngroup bottom" onClick={this.handleLogin}><Button className="btn">确认注册</Button></View>
+              {/* <View className="btngroup" onClick={this.handleRegister}><Button className="btn reg">注 册</Button></View> */}
             </View>
           </View>
       </View>

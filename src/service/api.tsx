@@ -21,11 +21,3 @@ export async function uploadInfo(params) {
   return uploadFile(`${Config.API_HOST}/api/maintain/upload`,params);
 } 
 
-//购物车
-export async function userInfoCartSave(params) {
-    return request(`${Config.API_HOST}/api/cart/save`,{
-      method:'POST',
-    body:params
-  });
-}
-
