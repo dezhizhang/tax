@@ -16,6 +16,10 @@ export async function mediaDetailInfo(params) {
 export async function advertInfo() {
   return request(`${Config.API_HOST}/api/v1/advert/info`)
 }
+//获取验证码
+export async function userCode(params) {
+  return request(`${Config.API_HOST}/api/v1/user/code?phone=${params.phone}`)
+}
 //提交维修
 export async function uploadInfo(params) {
   return uploadFile(`${Config.API_HOST}/api/maintain/upload`,params);

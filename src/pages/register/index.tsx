@@ -4,6 +4,7 @@ import { View, Button,Input,Image } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { add, minus, asyncAdd } from '../../actions/counter'
 import { showToast } from '../../utils/tools'
+import { userCode } from '../../service/api'
 import header from '../../static/header.png'
 import './index.less'
 
@@ -49,7 +50,7 @@ class Index extends Component {
     
   }
   state = {
-    username:"",
+    phone:"",
     password:"",
     msg:"发送验证码",
     disabled:false
@@ -84,34 +85,47 @@ class Index extends Component {
     })
   }
   handleLogin = () => {
-    let { username,password } = this.state;
+    let { phone,password } = this.state;
     let params = {
-      username,
+      phone,
       password
     }
   }
   //倒计时
-  goGetCode =() => {
+  goGetCode = async() => {
+      let { phone } = this.state;
       let that = this;
       let time = 60;
-      that.setState({
-        msg: '60秒后重发',
-        disabled: true
-      })
-      var Interval = setInterval(function() {
-        time--;
-        if (time>0){
-          that.setState({
-            msg: time + '秒后重发'
-          })
-        }else{
-          clearInterval(Interval);
-          that.setState({
-            msg: '获取验证码',
-            disabled: false
-          })
+      if(phone) {
+        let res = await userCode({phone});
+        if(res.data.code == 200) {
+          showToast({title:res.data.msg,icon:"success"});
+        } else {
+          showToast({title:res.data.msg,icon:'error'});
         }
-      },1000)
+       
+        that.setState({
+          msg: '60秒后重发',
+          disabled: true
+        })
+        let Interval = setInterval(function() {
+          time--;
+          if (time>0){
+            that.setState({
+              msg: time + '秒后重发'
+            })
+          }else{
+            clearInterval(Interval);
+            that.setState({
+              msg: '获取验证码',
+              disabled: false
+            })
+          }
+        },1000);
+        
+      } else {
+        showToast({title:"手机号不能为空",icon:'none'});
+      }
   }
 
   render () {
