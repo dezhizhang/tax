@@ -1,6 +1,6 @@
 const config = {
     development: {
-      API_HOST: 'http://127.0.0.1:7001',
+      API_HOST: 'http://192.168.101.7:7001',
       HOST_TITLE: '(开发环境)',
       QINIU_KEY: '',
       BAIDU_MAP_AK: '',
