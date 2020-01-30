@@ -51,7 +51,7 @@ class Index extends Component {
       userInfo:{},
     }
     config: Config = {
-    navigationBarTitleText: '我的'
+    navigationBarTitleText: '荣屿财税'
   }
 
   componentWillReceiveProps (nextProps) {

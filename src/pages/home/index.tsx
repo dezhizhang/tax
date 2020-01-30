@@ -80,7 +80,7 @@ class Index extends Component {
     }
 
   config: Config = {
-    navigationBarTitleText: '晓智报税',
+    navigationBarTitleText: '荣屿财税',
     navigationBarBackgroundColor:"#5C86FF"
   }
 
@@ -220,53 +220,21 @@ class Index extends Component {
                 return (<Image className="advert_image" key={index} mode='aspectFill' src={`${baseURL}${item.advert_img}`}></Image>)
               })}
             </View>
-            <View className="hot">
-              <View className="top">
-                 <View className="left">热门产品</View>
-                 <View className="right">MORE</View>
-              </View>
-              <View className="bottom">
-                <Swiper
-                  circular
-                  autoplay
-                  >
-                  {hotArr.map((item,index) => {
-                    return <SwiperItem key={index}>
-                     <View className='swiper-item'>
-                       {item.map((list,number) => {
-                         return <View className='item' key={number} onClick={() => this.handleToDetail(list)}>
-                         <View className="item-top">
-                             <Image className="image" mode='aspectFill'  src={`${baseURL}${list.product_url}`}/>
-                         </View>
-                         <View className="item-bottom">
-                          <View className="bottom-top">{list.description}</View>
-                          <View className="bottom-bottom">
-                            <View className="bottom-left">￥{list.price}</View>
-                          </View>
-                         </View>
-                      </View>
-                       })}
-                     </View>
-                   </SwiperItem>
-                  })}
-                </Swiper>
-              </View>
-            </View>
           </View>
           <View className="product">
-             主打产品
+             推荐企业
           </View>
           <View className='product_item'>
           <View className="product_wrapper">
             {listData.map((item,index) => {
               return  <View className="item" key={index} onClick={() =>this.handleToDetail(item)}>
               <View className="item-top">
-                <Image className="image" mode='aspectFill'  src={`${baseURL}${item.product_url}`}/>
+                <Image className="image" mode='aspectFill'  src={`${baseURL}${item.company_url}`}/>
               </View>
               <View className="item-bottom">
-                <View className="bottom-desc">{item.description}</View>
+                <View className="bottom-desc">{item.name}</View>
                 <View className="bottom-text">
-                    <View className="text-left">￥{item.price}</View>
+                    <View className="text-left">￥{item.description}</View>
                 </View>
               </View>
             </View>

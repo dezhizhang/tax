@@ -125,7 +125,6 @@ class Index extends Component {
       let time = 60;
       if(phone) {
         let res = await userCode({phone});
-        console.log(res)
         if(res.data.code == 200) {
           showToast({title:res.data.msg});
         } else {

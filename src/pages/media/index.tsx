@@ -31,7 +31,7 @@ interface Index {
 
 class Index extends Component {
     config: Config = {
-      navigationBarTitleText: '晓智报税',
+      navigationBarTitleText: '荣屿财税',
       navigationBarBackgroundColor:"#5C86FF"
     
   }
