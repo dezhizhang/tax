@@ -69,7 +69,7 @@ class Index extends Component {
     if(!reg.test(value)) {
       showToast({
         title:"手机号不合法",
-        icon:"error",
+        icon:" ",
       });
       return
     }
@@ -85,14 +85,13 @@ class Index extends Component {
   }
   handleLogin = async() => {
     let { phone,password } = this.state;
-   
     let params = {
       phone,
       password
     }
     let res = await userLogin(params);
     let data = res.data;
-    if(data.code) {
+    if(data.code == 200) {
       Taro.switchTab({
         url:'../home/index'
       })

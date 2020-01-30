@@ -93,7 +93,9 @@ class Index extends Component {
       phone_code
     }
     let res = await userRegister(params);
+    
     let data = res.data;
+    console.log(data);
     if(data.code == 200) {
       showToast({
         title:res.data.msg,
@@ -106,7 +108,7 @@ class Index extends Component {
     } else {
       showToast({
         title:data.msg,
-        icon:"wrang"
+        icon:""
       })
     }
   }
@@ -123,10 +125,11 @@ class Index extends Component {
       let time = 60;
       if(phone) {
         let res = await userCode({phone});
+        console.log(res)
         if(res.data.code == 200) {
-          showToast({title:res.data.msg,icon:"success"});
+          showToast({title:res.data.msg});
         } else {
-          showToast({title:res.data.msg,icon:'error'});
+          showToast({title:res.data.msg,icon:""});
         }
        
         that.setState({
