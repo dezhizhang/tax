@@ -1,7 +1,7 @@
 import { ComponentClass, } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Button,Input,Image,Text } from '@tarojs/components'
-import { mediaDetailInfo, } from '../../service/api'
+import { View,Image, } from '@tarojs/components'
+import { mediaDetail, } from '../../service/api'
 import { baseURL } from '../../utils/tools'
 import './index.less'
 
@@ -31,7 +31,7 @@ interface Index {
 
 class Index extends Component {
     config: Config = {
-      navigationBarTitleText: '晓智报税',
+      navigationBarTitleText: '荣屿财税',
       navigationBarBackgroundColor:"#5C86FF"
     
   }
@@ -53,7 +53,7 @@ class Index extends Component {
   }
 
   detailData = async(params) => {
-    let res = await mediaDetailInfo(params);
+    let res = await mediaDetail(params);
     if(res.data.code == 200) {
         let detail = res.data.data;
         this.setState({ detail });
@@ -69,15 +69,17 @@ class Index extends Component {
 
   render () {
     const { detail } = this.state;
-    console.log(detail);
     return (
-      <View className='detail'>
-          <View className="header">
-              <Image src={`${baseURL}${detail.media_img}`} className="img"/>
-          </View>
-          <View className="content">
-             <Text>{detail.description}</Text>
-          </View>
+      <View className='mdetail'>
+         <View className="header">
+            <Image className="image" src={`${baseURL}${detail.media_img}`}/>
+         </View>
+         <View className="content">
+           <View className="box">
+             <View className="name">{detail.title}</View>
+             <View className="description">{detail.description}</View>
+           </View>
+         </View>
       </View>
     )
   }

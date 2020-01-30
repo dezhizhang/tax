@@ -9,8 +9,8 @@ export async function mediaInfo(params) {
   return request(`${Config.API_HOST}/api/v1/media/list?page=${params.page}`)
 }
 //媒体详情
-export async function mediaDetailInfo(params) {
-  return request(`${Config.API_HOST}/api/v1/media/detail/info?id=${params.id}`)
+export async function mediaDetail(params) {
+  return request(`${Config.API_HOST}/api/v1/media/detail?id=${params.id}`)
 }
 //广告图
 export async function advertInfo() {

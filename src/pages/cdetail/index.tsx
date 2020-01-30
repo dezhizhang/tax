@@ -1,6 +1,6 @@
 import { ComponentClass, } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Button,Input,Image,Text } from '@tarojs/components'
+import { View,Image } from '@tarojs/components'
 import { companyDetail, } from '../../service/api'
 import { baseURL } from '../../utils/tools'
 import './index.less'

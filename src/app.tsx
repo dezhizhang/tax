@@ -14,11 +14,8 @@ class App extends Component {
       "pages/media/index",
       "pages/home/index",
       "pages/my/index",
-      "pages/detail/index",
+      "pages/mdetail/index",
       "pages/register/index",
-      
-      
-
     ],
     window: {
       backgroundTextStyle: 'light',
