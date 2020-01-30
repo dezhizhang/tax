@@ -1,6 +1,6 @@
 import { ComponentClass, } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View,Image, } from '@tarojs/components'
+import { View,Image,Text } from '@tarojs/components'
 import { mediaDetail, } from '../../service/api'
 import { baseURL } from '../../utils/tools'
 import './index.less'
@@ -77,7 +77,7 @@ class Index extends Component {
          <View className="content">
            <View className="box">
              <View className="name">{detail.title}</View>
-             <View className="description">{detail.description}</View>
+             <Text className="description">{detail.description}</Text>
            </View>
          </View>
       </View>
