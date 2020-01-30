@@ -34,6 +34,10 @@ export async function userLogin(params) {
     body:params
   })
 }
+//公司列表
+export async function companyList(params) {
+  return request(`${Config.API_HOST}/api/v1/company/list?page=${params.page}`)
+}
 //提交维修
 export async function uploadInfo(params) {
   return uploadFile(`${Config.API_HOST}/api/maintain/upload`,params);

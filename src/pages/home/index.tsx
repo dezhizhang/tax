@@ -3,7 +3,7 @@ import { connect } from '@tarojs/redux'
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Swiper, SwiperItem,ScrollView,Image  } from '@tarojs/components'
 import { add, minus, asyncAdd } from '../../actions/counter'
-import { focusInfo,advertInfo,getProductHot,getProductList } from '../../service/api'
+import { focusInfo,advertInfo,companyList } from '../../service/api'
 import { baseURL,showLoading,hideLoading } from '../../utils/tools'
 import category from '../../images/category.png'
 import facility from '../../images/facility.png'
@@ -90,8 +90,7 @@ class Index extends Component {
   componentDidMount() {
     this.getFocusData();
     this.getadvertData();
-    this.getProductHotData();
-    this.getProductListData();
+    this.getCompanyListData();
   }
   getFocusData = async () =>  {
      const result = await focusInfo();
@@ -109,21 +108,13 @@ class Index extends Component {
        this.setState({advertData})
      }
   }
-  getProductHotData = async () => {
-    const result = await getProductHot();
-    const data = result.data;
-
-    if(data.code == 200) {
-      let hotData = data.data;
-      this.setState({hotData});
-    }
-  }
-  getProductListData = async () =>  {
+  //公司列表
+  getCompanyListData = async () =>  {
     const { page } = this.state;
-    const result = await getProductList({page:page});
+    const result = await companyList({page:page});
     const data = result.data;
     if(data.code == 200) {
-      let listData = data.data;
+      let listData = data.list;
       this.setState({listData})
     }
   }
@@ -132,28 +123,15 @@ class Index extends Component {
       url: '../maintain/index'
     });
   }
-  //数组转换方法
-  arrTrans = (num,arr) => {
-    let iconsArr = [];
-    arr.forEach((item, index) => {
-      let page = Math.floor(index / num); // 计算该元素为第几个素组内
-      if (!iconsArr[page]) { // 判断是否存在
-        iconsArr[page] = [];
-      }
-      iconsArr[page].push(item);
-    });
-    return iconsArr;
-  } 
-
   onReachBottom = async() => {
     let { page,listData } = this.state;
     page++;
-    const result = await getProductList({page:page});
+    const result = await companyList({page:page});
     const data = result.data;
     showLoading({title:'加载中'})
     if(data.code == 200) {
       hideLoading();
-      let listArr = listData.concat(data.data);
+      let listArr = listData.concat(data.list);
       this.setState({listData:listArr,page});
     }
   }
@@ -177,9 +155,8 @@ class Index extends Component {
   componentDidHide () { }
 
   render () {
-    const { focusData,advertData,hotData,listData,classifyArr } = this.state;
-    let hotArr = this.arrTrans(3,hotData); //3代表二维数据有几个
-  
+    const { focusData,advertData,listData,classifyArr } = this.state;
+   
     return (
       <ScrollView className='index'
         scrollY={true}
@@ -234,7 +211,7 @@ class Index extends Component {
               <View className="item-bottom">
                 <View className="bottom-desc">{item.name}</View>
                 <View className="bottom-text">
-                    <View className="text-left">￥{item.description}</View>
+                    <View className="text-left">{item.description}</View>
                 </View>
               </View>
             </View>
