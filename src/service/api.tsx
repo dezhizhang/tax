@@ -38,6 +38,10 @@ export async function userLogin(params) {
 export async function companyList(params) {
   return request(`${Config.API_HOST}/api/v1/company/list?page=${params.page}`)
 }
+//公司详情
+export async function companyDetail(params) {
+  return request(`${Config.API_HOST}/api/v1/company/detail?id=${params.id}`)
+}
 //提交维修
 export async function uploadInfo(params) {
   return uploadFile(`${Config.API_HOST}/api/maintain/upload`,params);

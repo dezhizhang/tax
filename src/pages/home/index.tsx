@@ -135,10 +135,10 @@ class Index extends Component {
       this.setState({listData:listArr,page});
     }
   }
-  //商品详情
+  //公司详情
   handleToDetail = (item) => {
     Taro.navigateTo({
-      url: `../detail/index?detail_id=${item._id}`
+      url: `../cdetail/index?id=${item._id}`
     })
   }
   //分类详情

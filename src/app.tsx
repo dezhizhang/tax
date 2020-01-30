@@ -10,11 +10,14 @@ class App extends Component {
   config: Config = {
     pages: [
       'pages/index/index',
+      "pages/cdetail/index",
       "pages/media/index",
       "pages/home/index",
       "pages/my/index",
       "pages/detail/index",
-      "pages/register/index"
+      "pages/register/index",
+      
+      
 
     ],
     window: {
