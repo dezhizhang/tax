@@ -88,12 +88,13 @@ class Index extends Component {
   }
   handleRegister = async() => {
     let { phone,password,phone_code,userName } = this.state;
-    let params = {
-      phone,
-      password,
-      phone_code
-    }
     if(phone && password && userName) {
+      let params = {
+        phone,
+        password,
+        phone_code,
+        userName
+      }
       let res = await userRegister(params);
       let data = res.data;
       if(data.code == 200) {

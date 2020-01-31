@@ -3,9 +3,10 @@ import Taro, { Component, Config } from '@tarojs/taro'
 import { View,Image,} from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { add, minus, asyncAdd } from '../../actions/counter'
+import { userInfo } from '../../service/api'
+import { showToast } from '../../utils/tools'
 import myHeader from '../../images/my_header.png'
 import avatar from '../../images/avatar.png'
-import gift from '../../images/gift.png'
 import allOrder from '../../images/all_order.png'
 import msg from '../../images/icon/msg.png'
 import arrow from '../../images/icon/arrow.png'
@@ -48,7 +49,7 @@ interface Index {
 }))
 class Index extends Component {
     state = {
-      userInfo:{},
+      userData:{},
     }
     config: Config = {
     navigationBarTitleText: '荣屿财税',
@@ -72,10 +73,26 @@ class Index extends Component {
       url:'../maintain/index'
     })
   }
+  componentDidMount() {
+    this.getUserInfo();
+  }
+  getUserInfo = async() => {
+    let { data } = await Taro.getStorage({ key: 'id' });
+    let res = await userInfo({id:data});
+    if(res.data.code == 200) {
+      let userData = res.data.data;
+      this.setState({
+        userData
+      })
+    } else {
+      
+      showToast({title:res.data.msg,icon:""});
+    }
+  }
   componentDidHide () { }
 
   render () {
-    let { userInfo } = this.state;
+    let { userData } = this.state;
     return (
     <View className="my">
       <View className="header">
@@ -84,11 +101,11 @@ class Index extends Component {
               <Image className="image" src={myHeader}/>
             </View>
             <View className="header_avatar" onClick={this.handleToLogin}>
-              <Image src={userInfo&&userInfo.avatarUrl ? userInfo.avatarUrl:avatar} className="avatar"/>
+              <Image src={userData&&userData.avatarUrl ? userData.avatarUrl:avatar} className="avatar"/>
             </View>
             <View className="header_user">
-              <View className="user_name">{userInfo&&userInfo.nickName}</View>
-              <View className="user_address">呢称:{userInfo&&userInfo.userId}</View> 
+              <View className="user_name"></View>
+              <View className="user_address">呢称:{userData&&userData.userName}</View> 
             </View>
            
           </View>
