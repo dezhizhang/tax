@@ -115,15 +115,15 @@ class Index extends Component {
               <View className="info_box">
                 <View className="box_top">
                   <View className="top_item">
-                    <View className="item_top">待付款</View>
+                    <View className="item_top">待报税</View>
                     <View className="item_bottom">3</View>
                   </View>
                   <View className="top_item">
-                    <View className="item_top">待发货</View>
+                    <View className="item_top">报完成</View>
                     <View className="item_bottom">3</View>
                   </View>
                   <View className="top_item">
-                    <View className="item_top">待收货</View>
+                    <View className="item_top">未完成</View>
                     <View className="item_bottom">6</View>
                   </View>
                   <View className="top_item">
@@ -158,9 +158,8 @@ class Index extends Component {
              <View className="icon-left">
                <Image className="image" src={msg}/>
              </View>
-             <View className="text-left">我的消息</View>
+             <View className="text-left">报税列表</View>
              <View className="text-right">
-               <View className="text-number">16</View>
              </View>
              <View className="icon-right">
                <Image src={arrow} className="image"/>
@@ -174,48 +173,20 @@ class Index extends Component {
              </View>
              <View className="text-left">我的收藏</View>
              <View className="text-right">
-               {/* <View className="text-number">16</View> */}
+                <View className="text-number">16</View> 
              </View>
              <View className="icon-right">
                <Image src={arrow} className="image"/>
              </View>
           </View>
         </View>
+      
         <View className="content-item">
           <View className="item">
              <View className="icon-left">
                <Image className="image" src={msg}/>
              </View>
-             <View className="text-left">我的卡券</View>
-             <View className="text-right">
-              你有3张优惠券待使用
-               {/* <View className="text-number">16</View> */}
-             </View>
-             <View className="icon-right">
-               <Image src={arrow} className="image"/>
-             </View>
-          </View>
-        </View>
-        <View className="content-item">
-          <View className="item">
-             <View className="icon-left">
-               <Image className="image" src={msg}/>
-             </View>
-             <View className="text-left">我的金币</View>
-             <View className="text-right">
-               {/* <View className="text-number">16</View> */}
-             </View>
-             <View className="icon-right">
-               <Image src={arrow} className="image"/>
-             </View>
-          </View>
-        </View>
-        <View className="content-item" onClick={this.handleOrder}>
-          <View className="item">
-             <View className="icon-left">
-               <Image className="image" src={msg}/>
-             </View>
-             <View className="text-left">我的预约</View>
+             <View className="text-left">添加报税</View>
              <View className="text-right">
              </View>
              <View className="icon-right">
@@ -223,6 +194,7 @@ class Index extends Component {
              </View>
           </View>
         </View>
+       
       </View>
       <View className="footer">
         <View className="content-item">
@@ -232,7 +204,6 @@ class Index extends Component {
               </View>
               <View className="text-left">我的设置</View>
               <View className="text-right">
-                <View className="text-number">16</View>
               </View>
               <View className="icon-right">
                 <Image src={arrow} className="image"/>
@@ -244,15 +215,13 @@ class Index extends Component {
               <View className="icon-left">
                 <Image className="image" src={msg}/>
               </View>
-              <View className="text-left">官方客服</View>
+              <View className="text-left">联系我们</View>
               <View className="text-right">
-                <View className="text-number">16</View>
               </View>
               <View className="icon-right">
                 <Image src={arrow} className="image"/>
               </View>
             </View>
-           
         </View>
       </View>
     </View>
@@ -260,8 +229,7 @@ class Index extends Component {
   }
 }
 
-// #region 导出注意
-//
+
 // 经过上面的声明后需要将导出的 Taro.Component 子类修改为子类本身的 props 属性
 // 这样在使用这个子类时 Ts 才不会提示缺少 JSX 类型参数错误
 //
