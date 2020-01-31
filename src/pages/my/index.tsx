@@ -51,7 +51,8 @@ class Index extends Component {
       userInfo:{},
     }
     config: Config = {
-    navigationBarTitleText: '荣屿财税'
+    navigationBarTitleText: '荣屿财税',
+    navigationBarBackgroundColor:"#5C86FF"
   }
 
   componentWillReceiveProps (nextProps) {
@@ -60,24 +61,7 @@ class Index extends Component {
 
   componentWillUnmount () { }
 
-  componentDidShow() {
-    let result = Taro.getStorageSync('userInfo');
-    let userInfo =result?JSON.parse(result):''
-    if(userInfo) {
-      this.setState({userInfo});
-    } else {
-      Taro.showModal({
-        title: '温馨提示',
-        content: '您还没有登录!',
-      }).then(res => {
-        if(res.confirm) {
-          Taro.navigateTo({
-            url:'../login/index'
-          })
-        }
-      })
-    }
-  }
+
   handleToLogin =() => {
     Taro.navigateTo({
       url:'../login/index'
@@ -104,16 +88,9 @@ class Index extends Component {
             </View>
             <View className="header_user">
               <View className="user_name">{userInfo&&userInfo.nickName}</View>
-              <View className="user_address">ID:{userInfo&&userInfo.userId}</View>
+              <View className="user_address">呢称:{userInfo&&userInfo.userId}</View> 
             </View>
-            <View className="header_right">
-               <View className="right">
-                  <View className="icon">
-                    <Image src={gift} className="image"/>
-                  </View>
-                  <View className="text">推荐送礼</View>
-               </View>
-            </View>
+           
           </View>
           <View className="header_content">
           <View className="content_card">

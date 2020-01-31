@@ -54,7 +54,8 @@ class Index extends Component {
     password:"",
     msg:"发送验证码",
     phone_code:"",
-    disabled:false
+    disabled:false,
+    userName:"",
   }
 
   componentWillReceiveProps (nextProps) {
@@ -66,7 +67,7 @@ class Index extends Component {
   componentDidShow () { }
 
   componentDidHide () { }
-  handleUserName = (ev) => {
+  handlePhone = (ev) => {
     let value = ev.target.value;
     let reg = /^((13[0-9])|(17[0-1,6-8])|(15[^4,\\D])|(18[0-9]))\d{8}$/;
     if(!reg.test(value)) {
@@ -86,36 +87,48 @@ class Index extends Component {
     })
   }
   handleRegister = async() => {
-    let { phone,password,phone_code } = this.state;
+    let { phone,password,phone_code,userName } = this.state;
     let params = {
       phone,
       password,
       phone_code
     }
-    let res = await userRegister(params);
-    
-    let data = res.data;
-    console.log(data);
-    if(data.code == 200) {
-      showToast({
-        title:res.data.msg,
-        icon:"success"
-      });
-      Taro.reLaunch({
-        url:'../index/index'
-      })
-      
-    } else {
-      showToast({
-        title:data.msg,
-        icon:""
-      })
+    if(phone && password && userName) {
+      let res = await userRegister(params);
+      let data = res.data;
+      if(data.code == 200) {
+        showToast({
+          title:res.data.msg,
+          icon:"success"
+        });
+        Taro.reLaunch({
+          url:'../index/index'
+        })
+        
+      } else {
+        showToast({
+          title:data.msg,
+          icon:""
+        })
+      }
+    } else if(!password) {
+      showToast({title:"密码不能为空",icon:""});
+      return;
+    }else if(!userName) {
+      showToast({title:"呢称不能为空",icon:""});
+
     }
   }
   handlePhoneCode = (ev) => {
     let value = ev.target.value;
     this.setState({
       phone_code:value
+    })
+  }
+  handleUserName = (ev) => {
+    let value = ev.target.value;
+    this.setState({
+      userName:value
     })
   }
   //倒计时
@@ -165,10 +178,13 @@ class Index extends Component {
           <View className="content">
             <View className="box">
               <View className="list">
-                <Input className="input" onChange={this.handleUserName} type='text' placeholder='请输入手机号'/>
+                <Input className="input" onChange={this.handlePhone} type='text' placeholder='请输入手机号'/>
               </View>
               <View className="list">
                 <Input className="input" onChange={this.handlePassword}  type='password' placeholder='请输入密码'/>
+              </View>
+              <View className="list">
+                <Input className="input" onChange={this.handleUserName}  type='text' placeholder='请输入呢称'/>
               </View>
               <View className="code bottom">
                   <View className="list_left">
