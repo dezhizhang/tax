@@ -50,8 +50,8 @@ export async function userInfo(params) {
 export async function contactInfo() {
   return request(`${Config.API_HOST}/api/v1/contact/list`)
 }
-//提交维修
+//报税提交
 export async function uploadInfo(params) {
-  return uploadFile(`${Config.API_HOST}/api/maintain/upload`,params);
+  return uploadFile(`${Config.API_HOST}/api/v1/tax/upload`,params);
 } 
 
