@@ -69,36 +69,39 @@ class Index extends Component {
         <View className='addtax'>
             <View className="wrapper">
                 <View className="box">
-                    <View className="list bottom">
+                    <View className="list">
                         <View className="left"><Text className="strong">*</Text><Text>公司名称：</Text></View>
-                        <View className="right"><Input className="input" type="text"/></View>
+                        <View className="right"><Input className="input" type="text" placeholder="请输入公司名称"/></View>
                     </View>
                     <View className="list">
                         <View className="left"><Text className="strong">*</Text><Text>信用代码：</Text></View>
-                        <View className="right"><Input className="input" type="text"/></View>
+                        <View className="right"><Input className="input" type="text" placeholder="请输入信用代码"/></View>
                     </View>
                     <View className="list">
                         <View className="left"><Text className="strong">*</Text><Text>接收电话：</Text></View>
-                        <View className="right"><Input className="input" type="text"/></View>
+                        <View className="right"><Input className="input" type="text" placeholder="请输入接收电话"/></View>
                     </View>
                     <View className="list">
                         <View className="left"><Text className="strong">*</Text><Text>注册地址：</Text></View>
-                        <View className="right"><Input className="input" type="text"/></View>
-                    </View>
-                    <View className="list bottom">
-                        <View className="left"><Text className="strong">*</Text><Text>联系人：</Text></View>
-                        <View className="right"><Input className="input" type="text"/></View>
+                        <View className="right"><Input className="input" type="text" placeholder="请输入注册地址"/></View>
                     </View>
                     <View className="list">
+                        <View className="left"><Text className="strong">*</Text><Text>联系人：</Text></View>
+                        <View className="right"><Input className="input" type="text" placeholder="请输入联系人"/></View>
+                    </View>
+                    <View className="list" style={{borderBottom:'none'}}>
                         <View className="left"><Text className="strong">*</Text><Text>公司图片</Text></View>
                     </View>
-                    <View className="image">
+                    <View className="image" style={{marginBottom:'60px'}}>
                         <View className="left">
                            <Image src={upload} className="upload"/>
                         </View>
                         <View className="right">
                             <Image src={server} className="upload"/>
                         </View>
+                    </View>
+                    <View>
+                        <Button className="submit">确　定</Button>
                     </View>
                 </View>
             </View>
