@@ -51,11 +51,23 @@ class Index extends Component {
     
   }
   state = {
-   
+    tempFilePaths:""
   }
 
   componentWillReceiveProps (nextProps) {
     console.log(this.props, nextProps)
+  }
+  handleChooseImage = () => {
+    let that = this;
+    const params = {
+      count:1,
+      sizeType:['original', 'compressed'],
+      sourceType: ['album', 'camera']
+    }
+    Taro.chooseImage(params).then(res => {
+       const tempFilePaths = res.tempFilePaths[0]; 
+       that.setState({tempFilePaths});
+    })
   }
 
   componentWillUnmount () { }
@@ -65,6 +77,7 @@ class Index extends Component {
   componentDidHide () { }
 
   render () {
+    const { tempFilePaths } = this.state;
     return (
         <View className='addtax'>
             <View className="wrapper">
@@ -93,8 +106,8 @@ class Index extends Component {
                         <View className="left"><Text className="strong">*</Text><Text>公司图片</Text></View>
                     </View>
                     <View className="image" style={{marginBottom:'60px'}}>
-                        <View className="left">
-                           <Image src={upload} className="upload"/>
+                        <View className="left" onClick={this.handleChooseImage}>
+                           <Image src={tempFilePaths ? tempFilePaths:upload} className="upload"/>
                         </View>
                         <View className="right">
                             <Image src={server} className="upload"/>
