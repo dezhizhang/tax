@@ -51,15 +51,13 @@ class Index extends Component {
     
     }
     state = {
-        tempFilePaths:"",
+        company_img:"",
         company_name:"",
         phone:"",
         address:"",
         contact:"",
         social_code:"",
         inform_time:"请选择接收时间"
-
-
     }
 
     componentWillReceiveProps (nextProps) {
@@ -74,7 +72,9 @@ class Index extends Component {
         }
         Taro.chooseImage(params).then(res => {
         const tempFilePaths = res.tempFilePaths[0]; 
-        that.setState({tempFilePaths});
+        that.setState({
+            company_img:tempFilePaths
+        });
         })
     }
 
@@ -126,8 +126,8 @@ class Index extends Component {
     }
     handleSubmit = async() => {
         let { data } = await Taro.getStorage({ key: 'id' });
-        const { tempFilePaths,company_name,phone,address,contact,social_code,inform_time} = this.state;
-        if(tempFilePaths&&company_name&&phone&&address&&contact&&social_code&&inform_time&&inform_time!="请选择接收时间") {
+        const { company_img,company_name,phone,address,contact,social_code,inform_time} = this.state;
+        if(company_img&&company_name&&phone&&address&&contact&&social_code&&inform_time&&inform_time!="请选择接收时间") {
             const params = {
                 phone,
                 contact,
@@ -135,10 +135,12 @@ class Index extends Component {
                 social_code,
                 inform_time,
                 company_name,
-                tempFilePaths,
+                company_img,
                 tax_id:data
             }
             showLoading({title:'信息上传中'});
+            console.log(params);
+            
            
             uploadInfo(params).then(res => {
                 let data = JSON.parse(res.data);
@@ -166,14 +168,14 @@ class Index extends Component {
             showToast({title:"注册地址不能为空",icon:"none"});
         } else if(!contact) {
             showToast({title:"联系人不能为空",icon:"none"});
-        }else if(!tempFilePaths) {
+        }else if(!company_img) {
             showToast({title:"公司图片不能为空",icon:"none"})
         }
        
     }
 
     render () {
-        const { tempFilePaths,inform_time } = this.state;
+        const { company_img,inform_time } = this.state;
         return (
             <View className='addtax'>
                 <View className="wrapper">
@@ -213,7 +215,7 @@ class Index extends Component {
                         </View>
                         <View className="image" style={{marginBottom:'60px'}}>
                             <View className="left" onClick={this.handleChooseImage}>
-                            <Image src={tempFilePaths ? tempFilePaths:upload} className="upload"/>
+                            <Image src={company_img ? company_img:upload} className="upload"/>
                             </View>
                             <View className="right">
                                 <Image src={server} className="upload"/>
