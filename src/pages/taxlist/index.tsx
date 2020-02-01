@@ -1,12 +1,10 @@
-import { ComponentClass } from 'react'
+import { ComponentClass, } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Button,Input,Image } from '@tarojs/components'
-import { connect } from '@tarojs/redux'
-import { add, minus, asyncAdd } from '../../actions/counter'
-import { userLogin } from '../../service/api'
-import { showToast } from '../../utils/tools'
-import header from '../../static/header.png'
+import { View,Image } from '@tarojs/components'
+import { taxList, } from '../../service/api'
+import { baseURL } from '../../utils/tools'
 import './index.less'
+
 
 type PageStateProps = {
   counter: {
@@ -30,32 +28,32 @@ interface Index {
   props: IProps;
 }
 
-@connect(({ counter }) => ({
-  counter
-}), (dispatch) => ({
-  add () {
-    dispatch(add())
-  },
-  dec () {
-    dispatch(minus())
-  },
-  asyncAdd () {
-    dispatch(asyncAdd())
-  }
-}))
+
 class Index extends Component {
     config: Config = {
-    navigationBarTitleText: '登录',
-    navigationBarBackgroundColor:"#5C86FF"
+      navigationBarTitleText: '荣屿财税',
+      navigationBarBackgroundColor:"#5C86FF"
     
   }
   state = {
-    phone:"",
-    password:"",
+    taxArr:[],
   }
 
   componentWillReceiveProps (nextProps) {
     console.log(this.props, nextProps)
+  }
+
+  componentDidMount() {
+    this.getTaxData();
+  }
+
+  getTaxData = async() => {
+    let { data } = await Taro.getStorage({ key: 'id' });
+    let res = await taxList({tax_id:data});
+    if(res.data.code == 200) {
+      let taxArr = res.data.data;
+      this.setState({ taxArr });
+    }
   }
 
   componentWillUnmount () { }
@@ -63,87 +61,33 @@ class Index extends Component {
   componentDidShow () { }
 
   componentDidHide () { }
-  handleUserName = (ev) => {
-    let value = ev.target.value;
-    let reg = /^((13[0-9])|(17[0-1,6-8])|(15[^4,\\D])|(18[0-9]))\d{8}$/;
-    if(!reg.test(value)) {
-      showToast({
-        title:"手机号不合法",
-        icon:" ",
-      });
-      return
-    }
-    this.setState({
-      phone:value
-    })
-  }
-  handlePassword = (ev) => {
-    let value = ev.target.value;
-    this.setState({
-      password:value
-    })
-  }
-  handleLogin = async() => {
-    let { phone,password } = this.state;
-    let params = {
-      phone,
-      password
-    }
-    if(phone && password) {
-      let res = await userLogin(params);
-      let data = res.data;
-      if(data.code == 200  && res.data.isReg) {
-        let id = data.data._id;
-        Taro.setStorage({ key: 'id', data: id })
-        Taro.switchTab({
-          url:'../home/index'
-        })
-      } else {
-        showToast({
-          title:data.msg,
-          icon:" "
-        });
-        Taro.navigateTo({
-          url:"../register/index"
-        });
-      }
-    } else if(!phone) {
-      showToast({
-        title:"手机号不能为空",
-        icon:""
-      })
-    } else if(!password) {
-      showToast({
-        title:"密码不能为空",
-        icon:""
-      })
-    }
-  
-  }
 
-  handleRegister = () => {
+  handleDetail = (item) => {
     Taro.navigateTo({
-      url:"../register/index"
-    });
+      url: `../mdetail/index?id=${item._id}`
+    })
   }
 
   render () {
+    const { taxArr } = this.state;
+    
     return (
-      <View className='index'>
-          <View className="header">
-            <Image className="image" src={header}/>
-          </View>
-          <View className="content">
-            <View className="box">
-              <View className="list">
-                <Input className="input" onChange={this.handleUserName} type='text' placeholder='请输入手机号'/>
+      <View className='media'>
+          <View className="box">
+            {
+              taxArr&&taxArr.map((item,index) => {
+                return <View className="list" key={index}>
+                <View className="left"><Image className="img" src={`${baseURL}${item.company_img}`}/></View>
+                <View className="right">
+                  <View className="title">企业名称：{item.company_name}</View>
+                  <View className="title">信用代码：{item.social_code}</View>
+                  <View className="title">注册地址：{item.address}</View>
+                  <View className="title">提醒时间：{item.inform_time}</View>
+                  <View className="title">状态：{item.status}</View>
+                </View>
               </View>
-              <View className="list bottom">
-                <Input className="input" onChange={this.handlePassword}  type='password' placeholder='请输入密码'/>
-              </View>
-              <View className="btngroup bottom" onClick={this.handleLogin}><Button className="btn">登 录</Button></View>
-              <View className="btngroup" onClick={this.handleRegister}><Button className="btn reg">注 册</Button></View>
-            </View>
+              })
+            }
           </View>
       </View>
     )

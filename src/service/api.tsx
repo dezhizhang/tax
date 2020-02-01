@@ -50,8 +50,13 @@ export async function userInfo(params) {
 export async function contactInfo() {
   return request(`${Config.API_HOST}/api/v1/contact/list`)
 }
+//报税列表
+export async function taxList(params) {
+  return request(`${Config.API_HOST}/api/v1/tax/list?tax_id=${params.tax_id}`)
+}
 //报税提交
 export async function uploadInfo(params) {
   return uploadFile(`${Config.API_HOST}/api/v1/tax/upload`,params);
 } 
+
 
