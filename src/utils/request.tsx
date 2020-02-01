@@ -22,7 +22,7 @@ export const uploadFile  = (url,options) => {
    const params = {
      url:url,
      filePath:options.tempFilePaths || '',
-     name:'image_url',
+     name:options.name,
      header:{
       'Content-Type':'multipart/form-data'
      },
