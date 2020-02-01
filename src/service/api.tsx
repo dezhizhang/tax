@@ -46,6 +46,10 @@ export async function companyDetail(params) {
 export async function userInfo(params) {
   return request(`${Config.API_HOST}/api/v1/company/user/info?id=${params.id}`)
 }
+//联系我们
+export async function contactInfo() {
+  return request(`${Config.API_HOST}/api/v1/contact/list`)
+}
 //提交维修
 export async function uploadInfo(params) {
   return uploadFile(`${Config.API_HOST}/api/maintain/upload`,params);

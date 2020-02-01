@@ -1,11 +1,9 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Button,Input,Image } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { add, minus, asyncAdd } from '../../actions/counter'
-import { userLogin } from '../../service/api'
-import { showToast } from '../../utils/tools'
-import header from '../../static/header.png'
+import { contactInfo } from '../../service/api'
 import './index.less'
 
 type PageStateProps = {
@@ -50,11 +48,23 @@ class Index extends Component {
     
   }
   state = {
-    
+    list:[]
   }
 
   componentWillReceiveProps (nextProps) {
     console.log(this.props, nextProps)
+  }
+
+  componentDidMount() {
+      this.getContactData()
+  }
+
+  getContactData = async() =>  {
+      let res = await contactInfo();
+      if(res.data.code == 200) {
+        let list = res.data.data;
+        this.setState({ list });
+      }
   }
 
   componentWillUnmount () { }
@@ -62,29 +72,20 @@ class Index extends Component {
   componentDidShow () { }
 
   componentDidHide () { }
-  
-
-
-
-
-
   render () {
+    let { list } = this.state;
     return (
       <View className='contact'>
         <View className="wrapper">
             <View className="box">
-                <View className="list">
-                    <View className="item">微信：15083356190</View>
-                    <View className="item">  Q  Q：1541609448</View>
-                    <View className="item">邮箱：1541609448@qq.com</View>
-                    <View className="item">电话：15083356190</View>
+                {list&&list.map((item,index) => {
+                    return <View key={index} className="list">
+                    <View className="item">微信：{item.wechat}</View>
+                    <View className="item">  Q  Q：{item.qq}</View>
+                    <View className="item">邮箱：{item.email}</View>
+                    <View className="item">电话：{item.mobile}</View>
                 </View>
-                <View className="list">
-                    <View className="item">微信：15083356190</View>
-                    <View className="item">  Q  Q：1541609448</View>
-                    <View className="item">邮箱：1541609448@qq.com</View>
-                    <View className="item">电话：15083356190</View>
-                </View>
+                })}
             </View>
         </View>
       </View>
