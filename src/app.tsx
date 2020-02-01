@@ -17,6 +17,8 @@ class App extends Component {
       "pages/mdetail/index",
       "pages/register/index",
       "pages/contact/index",
+      "pages/addtax/index",
+      "pages/taxlist/index"
     
     ],
     window: {

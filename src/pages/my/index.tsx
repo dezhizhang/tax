@@ -95,6 +95,18 @@ class Index extends Component {
       url:"../contact/index"
     });
   }
+  //添加报税
+  handleAddTax = () => {
+    Taro.navigateTo({
+      url:"../addtax/index"
+    })
+  }
+  //报税列表
+  handleTaxList = () => {
+    Taro.navigateTo({
+      url:"../taxlist/index"
+    })
+  }
 
   render () {
     let { userData } = this.state;
@@ -158,7 +170,7 @@ class Index extends Component {
       </View>
       </View>
       <View className="content">
-        <View className="content-item">
+        <View className="content-item" onClick={this.handleTaxList}>
           <View className="item">
              <View className="icon-left">
                <Image className="image" src={msg}/>
@@ -186,7 +198,7 @@ class Index extends Component {
           </View>
         </View>
       
-        <View className="content-item">
+        <View className="content-item" onClick={this.handleAddTax}>
           <View className="item">
              <View className="icon-left">
                <Image className="image" src={msg}/>
