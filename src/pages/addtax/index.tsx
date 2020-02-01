@@ -5,6 +5,8 @@ import { connect } from '@tarojs/redux'
 import { add, minus, asyncAdd } from '../../actions/counter'
 import { userLogin } from '../../service/api'
 import { showToast } from '../../utils/tools'
+import upload from '../../images/upload.png'
+import server from '../../images/server.png'
 import './index.less'
 
 type PageStateProps = {
@@ -92,9 +94,11 @@ class Index extends Component {
                     </View>
                     <View className="image">
                         <View className="left">
-                            <View></View>
+                           <Image src={upload} className="upload"/>
                         </View>
-                        <View className="right"></View>
+                        <View className="right">
+                            <Image src={server} className="upload"/>
+                        </View>
                     </View>
                 </View>
             </View>
