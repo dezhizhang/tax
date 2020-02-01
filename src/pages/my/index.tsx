@@ -90,6 +90,11 @@ class Index extends Component {
     }
   }
   componentDidHide () { }
+  handleContact = () => {
+    Taro.navigateTo({
+      url:"../contact/index"
+    });
+  }
 
   render () {
     let { userData } = this.state;
@@ -210,7 +215,7 @@ class Index extends Component {
               </View>
             </View>
         </View>
-        <View className="content-item">
+        <View className="content-item" onClick={this.handleContact}>
             <View className="item">
               <View className="icon-left">
                 <Image className="image" src={msg}/>

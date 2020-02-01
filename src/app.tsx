@@ -16,6 +16,7 @@ class App extends Component {
       "pages/home/index",
       "pages/mdetail/index",
       "pages/register/index",
+      "pages/contact/index",
     
     ],
     window: {
