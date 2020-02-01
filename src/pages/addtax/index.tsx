@@ -1,11 +1,10 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Button,Input,Image } from '@tarojs/components'
+import { View, Button,Input,Image,Text } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { add, minus, asyncAdd } from '../../actions/counter'
 import { userLogin } from '../../service/api'
 import { showToast } from '../../utils/tools'
-import header from '../../static/header.png'
 import './index.less'
 
 type PageStateProps = {
@@ -45,13 +44,12 @@ interface Index {
 }))
 class Index extends Component {
     config: Config = {
-    navigationBarTitleText: '登录',
+    navigationBarTitleText: '荣屿财税',
     navigationBarBackgroundColor:"#5C86FF"
     
   }
   state = {
-    phone:"",
-    password:"",
+   
   }
 
   componentWillReceiveProps (nextProps) {
@@ -63,89 +61,44 @@ class Index extends Component {
   componentDidShow () { }
 
   componentDidHide () { }
-  handleUserName = (ev) => {
-    let value = ev.target.value;
-    let reg = /^((13[0-9])|(17[0-1,6-8])|(15[^4,\\D])|(18[0-9]))\d{8}$/;
-    if(!reg.test(value)) {
-      showToast({
-        title:"手机号不合法",
-        icon:" ",
-      });
-      return
-    }
-    this.setState({
-      phone:value
-    })
-  }
-  handlePassword = (ev) => {
-    let value = ev.target.value;
-    this.setState({
-      password:value
-    })
-  }
-  handleLogin = async() => {
-    let { phone,password } = this.state;
-    let params = {
-      phone,
-      password
-    }
-    if(phone && password) {
-      let res = await userLogin(params);
-      let data = res.data;
-      if(data.code == 200  && res.data.isReg) {
-        let id = data.data._id;
-        Taro.setStorage({ key: 'id', data: id })
-        Taro.switchTab({
-          url:'../home/index'
-        })
-      } else {
-        showToast({
-          title:data.msg,
-          icon:" "
-        });
-        Taro.navigateTo({
-          url:"../register/index"
-        });
-      }
-    } else if(!phone) {
-      showToast({
-        title:"手机号不能为空",
-        icon:""
-      })
-    } else if(!password) {
-      showToast({
-        title:"密码不能为空",
-        icon:""
-      })
-    }
-  
-  }
-
-  handleRegister = () => {
-    Taro.navigateTo({
-      url:"../register/index"
-    });
-  }
 
   render () {
     return (
-      <View className='index'>
-          <View className="header">
-            <Image className="image" src={header}/>
-          </View>
-          <View className="content">
-            <View className="box">
-              <View className="list">
-                <Input className="input" onChange={this.handleUserName} type='text' placeholder='请输入手机号'/>
-              </View>
-              <View className="list bottom">
-                <Input className="input" onChange={this.handlePassword}  type='password' placeholder='请输入密码'/>
-              </View>
-              <View className="btngroup bottom" onClick={this.handleLogin}><Button className="btn">登 录</Button></View>
-              <View className="btngroup" onClick={this.handleRegister}><Button className="btn reg">注 册</Button></View>
+        <View className='addtax'>
+            <View className="wrapper">
+                <View className="box">
+                    <View className="list bottom">
+                        <View className="left"><Text className="strong">*</Text><Text>公司名称：</Text></View>
+                        <View className="right"><Input className="input" type="text"/></View>
+                    </View>
+                    <View className="list">
+                        <View className="left"><Text className="strong">*</Text><Text>信用代码：</Text></View>
+                        <View className="right"><Input className="input" type="text"/></View>
+                    </View>
+                    <View className="list">
+                        <View className="left"><Text className="strong">*</Text><Text>接收电话：</Text></View>
+                        <View className="right"><Input className="input" type="text"/></View>
+                    </View>
+                    <View className="list">
+                        <View className="left"><Text className="strong">*</Text><Text>注册地址：</Text></View>
+                        <View className="right"><Input className="input" type="text"/></View>
+                    </View>
+                    <View className="list bottom">
+                        <View className="left"><Text className="strong">*</Text><Text>联系人：</Text></View>
+                        <View className="right"><Input className="input" type="text"/></View>
+                    </View>
+                    <View className="list">
+                        <View className="left"><Text className="strong">*</Text><Text>公司图片</Text></View>
+                    </View>
+                    <View className="image">
+                        <View className="left">
+                            <View></View>
+                        </View>
+                        <View className="right"></View>
+                    </View>
+                </View>
             </View>
-          </View>
-      </View>
+        </View>
     )
   }
 }
