@@ -78,6 +78,9 @@ class Index extends Component {
     this.getUserInfo();
     this.getTaxInfo();
   }
+  componentDidShow(){
+    this.getUserInfo();
+  }
   getUserInfo = async() => {
     let { data } = await Taro.getStorage({ key: 'id' });
     let res = await userInfo({id:data});

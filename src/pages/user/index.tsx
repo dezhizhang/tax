@@ -3,10 +3,9 @@ import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Button,Input,Image,Text } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { add, minus, asyncAdd } from '../../actions/counter'
-import { updateUser } from '../../service/api'
-import { showToast,showLoading,hideLoading } from '../../utils/tools'
+import { updateUser,userInfo } from '../../service/api'
+import { showToast,showLoading,hideLoading,baseURL } from '../../utils/tools'
 import upload from '../../images/upload.png'
-import userImg from '../../images/userImg.png'
 import './index.less'
 
 type PageStateProps = {
@@ -54,6 +53,7 @@ class Index extends Component {
         tempFilePaths:"",
         user_name:"",
         password:"",
+        userData:{},
     
     }
 
@@ -90,10 +90,28 @@ class Index extends Component {
             password:value
         })
     }
+    componentDidMount() {
+       this.getUserData();
+    }
+    getUserData =async() => {
+        let { data } = await Taro.getStorage({ key: 'id' });
+        let res = await userInfo({id:data});
+        if(res.data.code == 200) {
+          let userData = res.data.data;
+          this.setState({
+            userData
+          })
+        } else {
+          
+          showToast({title:res.data.msg,icon:"none"});
+        }
+    }
 
     handleSubmit = async() => {
         let { data } = await Taro.getStorage({ key: 'id' });
-        const { tempFilePaths,user_name,password} = this.state;
+        let { tempFilePaths,user_name,password,userData} = this.state;
+        user_name = user_name ? user_name:userData.user_name;
+        password = password ? password:userData.password;
         if(tempFilePaths&&user_name&&password) {
             const params = {
                 user_name,
@@ -136,18 +154,18 @@ class Index extends Component {
     }
 
     render () {
-        const { tempFilePaths } = this.state;
+        const { tempFilePaths,userData } = this.state;
         return (
             <View className='addtax'>
                 <View className="wrapper">
                     <View className="box">
                         <View className="list">
                             <View className="left"><Text className="strong">*</Text><Text>呢称：</Text></View>
-                            <View className="right"><Input className="input" onInput={this.handleUserName} type="text" placeholder="请输入呢称"/></View>
+                            <View className="right"><Input value={userData.user_name} className="input" onInput={this.handleUserName} type="text" placeholder="请输入呢称"/></View>
                         </View>
                         <View className="list">
                             <View className="left"><Text className="strong">*</Text><Text>密码：</Text></View>
-                            <View className="right"><Input className="input" onInput={this.handlePassword}  type="password" placeholder="请输入密码"/></View>
+                            <View className="right"><Input value={userData.password} className="input" onInput={this.handlePassword}  type="password" placeholder="请输入密码"/></View>
                         </View>
                        
                         <View className="list" style={{borderBottom:'none'}}>
@@ -157,9 +175,7 @@ class Index extends Component {
                             <View className="left" onClick={this.handleChooseImage}>
                             <Image src={tempFilePaths ? tempFilePaths:upload} className="upload"/>
                             </View>
-                            <View className="right">
-                                <Image src={userImg} className="upload"/>
-                            </View>
+                    
                         </View>
                         <View>
                             <Button onClick={this.handleSubmit} className="submit">确　定</Button>
