@@ -1,12 +1,11 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Button,Input,Image,Text,Picker } from '@tarojs/components'
+import { View, Button,Input,Text,Textarea } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { add, minus, asyncAdd } from '../../actions/counter'
-import { uploadInfo } from '../../service/api'
+import { addFeedBack } from '../../service/api'
 import { showToast,showLoading,hideLoading } from '../../utils/tools'
-import upload from '../../images/upload.png'
-import server from '../../images/server.png'
+
 import './index.less'
 
 type PageStateProps = {
@@ -51,29 +50,12 @@ class Index extends Component {
     
     }
     state = {
-        tempFilePaths:"",
-        company_name:"",
-        phone:"",
-        address:"",
-        contact:"",
-        social_code:"",
-        inform_time:"请选择接收时间"
+        email:"",
+        description:""
     }
 
     componentWillReceiveProps (nextProps) {
         console.log(this.props, nextProps)
-    }
-    handleChooseImage = () => {
-        let that = this;
-        const params = {
-        count:1,
-        sizeType:['original', 'compressed'],
-        sourceType: ['album', 'camera']
-        }
-        Taro.chooseImage(params).then(res => {
-        const tempFilePaths = res.tempFilePaths[0]; 
-        that.setState({ tempFilePaths });
-        })
     }
 
     componentWillUnmount () { }
@@ -81,51 +63,53 @@ class Index extends Component {
     componentDidShow () { }
 
     componentDidHide () { }
-    handleCompanyName = (ev) => {
+
+
+    handleEmail = (ev) => {
         let value = ev.target.value;
         this.setState({
-            company_name:value
+            email:value
         })
     }
-    handleSocialCode = (ev) => {
-        let value = ev.target.value;
-        this.setState({
-            social_code:value
-        })
-    }
-    handlePhone = (ev) => {
-        let value = ev.target.value;
-        const reg = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/
-        if(!reg.test(value)) {
-            showToast({title:"手机号不合法",icon:"none"});
-            return;
-        }
-        this.setState({
-            phone:value
-        })
-    }
-    handleAddress = (ev) => {
-        let value = ev.target.value;
-        this.setState({
-            address:value
-        })
-    }
-    hanldeContact = (ev) => {
-        let value = ev.target.value;
-        this.setState({
-            contact:value
-        })
-    }
-    onTimeChange = (ev) => {
-        let value = ev.detail.value;
-        this.setState({
-            inform_time:value
-        })
-    }
+
+
     handleSubmit = async() => {
-        
+        let { email,description} = this.state;
+        if(!email) {
+            showToast({
+                title:"邮箱不能为空",
+                icon:"none"
+            })
+            return
+        } else {
+            let params = {
+                email,
+                description
+            }
+            let res = await addFeedBack(params);
+            showLoading({title:"提交中..."})
+            if(res.data.code == 200) {
+                hideLoading();
+                showToast({
+                    title:res.data.msg,
+                    icon:"success"
+                })
+            } else {
+                showToast({
+                    title:res.data.msg,
+                    icon:"none"
+                })
+            }
+        }
        
     }
+    handleDescription = (ev) => {
+        let value = ev.target.value;
+        this.setState({
+            description:value
+        })
+    }
+
 
     render () {
        
@@ -133,21 +117,20 @@ class Index extends Component {
             <View className='addtax'>
                 <View className="wrapper">
                     <View className="box">
-                        <View className="list">
-                            <View className="left"><Text className="strong">*</Text><Text>联系邮箱：</Text></View>
-                            <View className="right"><Input className="input" onInput={this.handleCompanyName} type="text" placeholder="请输入联系邮箱"/></View>
+                        <View className="list" style={{marginBottom:20}}>
+                            <View className="left"><Text className="strong">*</Text><Text className="text">联系邮箱：</Text></View>
+                            <View className="right"><Input className="input" onInput={this.handleEmail} type="text" placeholder="请输入联系邮箱"/></View>
                         </View>
-                       
-                        <View className="list">
-                            <View className="left"><Text className="strong">*</Text><Text>注册地址：</Text></View>
-                            <View className="right"><Input onInput={this.handleAddress} className="input" type="text" placeholder="请输入注册地址"/></View>
+
+                        <View className="text" style={{marginBottom: 60}}>
+                            <Textarea onInput={this.handleDescription}  className="textarea" placeholder="请输入反馈内容"/>
                         </View>
-                     
-                    
                         <View>
                             <Button onClick={this.handleSubmit} className="submit">确　定</Button>
                         </View>
+                      
                     </View>
+                 
                 </View>
             </View>
         )

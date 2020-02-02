@@ -66,5 +66,12 @@ export async function updateUser(params) {
 export async function taxInfo(params) {
   return request(`${Config.API_HOST}/api/v1/tax/info?tax_id=${params.tax_id}`)
 }
+//增加反馈内容
+export async function addFeedBack(params) {
+  return request(`${Config.API_HOST}/api/v1/feedback/add`,{
+    method:"POST",
+    body:params
+  })
+}
 
 
