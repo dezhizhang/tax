@@ -134,12 +134,14 @@ class Index extends Component {
       url:"../taxlist/index?status=0"
     })
   }
-
-
+  //意见反馈
+  handleFeedback = () => {
+    Taro.navigateTo({
+      url:"../feedback/index"
+    })
+  }
   render () {
     let { userData,taxData } = this.state;
-    console.log(userData.user_img);
-
     return (
     <View className="my">
       <View className="header">
@@ -213,7 +215,7 @@ class Index extends Component {
              </View>
              <View className="text-left">我的收藏</View>
              <View className="text-right">
-                <View className="text-number">16</View> 
+                {/* <View className="text-number">16</View>  */}
              </View>
              <View className="icon-right">
                <Image src={arrow} className="image"/>
@@ -256,6 +258,19 @@ class Index extends Component {
                 <Image className="image" src={msg}/>
               </View>
               <View className="text-left">联系我们</View>
+              <View className="text-right">
+              </View>
+              <View className="icon-right">
+                <Image src={arrow} className="image"/>
+              </View>
+            </View>
+        </View>
+        <View className="content-item" onClick={this.handleFeedback}>
+            <View className="item">
+              <View className="icon-left">
+                <Image className="image" src={msg}/>
+              </View>
+              <View className="text-left">意见反馈</View>
               <View className="text-right">
               </View>
               <View className="icon-right">

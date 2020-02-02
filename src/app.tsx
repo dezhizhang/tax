@@ -19,7 +19,8 @@ class App extends Component {
       "pages/contact/index",
       "pages/addtax/index",
       "pages/taxlist/index",
-      "pages/user/index"
+      "pages/user/index",
+      "pages/feedback/index"
     
     ],
     window: {
