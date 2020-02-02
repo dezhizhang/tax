@@ -52,7 +52,7 @@ export async function contactInfo() {
 }
 //报税列表
 export async function taxList(params) {
-  return request(`${Config.API_HOST}/api/v1/tax/list?tax_id=${params.tax_id}`)
+  return request(`${Config.API_HOST}/api/v1/tax/list?tax_id=${params.tax_id}&status=${params.status}`)
 }
 //报税提交
 export async function uploadInfo(params) {

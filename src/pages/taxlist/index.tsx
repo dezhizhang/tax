@@ -43,13 +43,14 @@ class Index extends Component {
     console.log(this.props, nextProps)
   }
 
-  componentDidMount() {
-    this.getTaxData();
+  componentWillMount () {
+    let params = this.$router.params;
+    this.getTaxData(params);
   }
 
-  getTaxData = async() => {
+  getTaxData = async(params) => {
     let { data } = await Taro.getStorage({ key: 'id' });
-    let res = await taxList({tax_id:data});
+    let res = await taxList({'tax_id':data,'status':params.status});
     if(res.data.code == 200) {
       let taxArr = res.data.data;
       this.setState({ taxArr });

@@ -113,12 +113,25 @@ class Index extends Component {
       url:"../addtax/index"
     })
   }
-  //报税列表
-  handleTaxList = () => {
+  //所有报税列表
+  handleAllList = () => {
     Taro.navigateTo({
-      url:"../taxlist/index"
+      url:"../taxlist/index?status=all"
     })
   }
+  //完成报税表列
+  handleComplete = () => {
+    Taro.navigateTo({
+      url:"../taxlist/index?status=1"
+    })
+  }
+  //待报税
+  handleNotTax = () => {
+    Taro.navigateTo({
+      url:"../taxlist/index?status=0"
+    })
+  }
+
 
   render () {
     let { userData,taxData } = this.state;
@@ -162,17 +175,23 @@ class Index extends Component {
                 </View>
                 <View className="box-bottom">
                     <View className="bottom-wrapper">
-                      <View className="bottom-item">
+                      <View className="bottom-item" onClick={this.handleAllList}>
                         <View className="item-top">
                            <Image src={allOrder} className="image"/>
                         </View>
-                        <View className="item-bottom">所有订单</View>
+                        <View className="item-bottom" >所有报税</View>
                       </View>
-                      <View className="bottom-item">
+                      <View className="bottom-item" onClick={this.handleNotTax}>
                         <View className="item-top">
                           <Image src={allOrder} className="image"/>
                         </View>
-                        <View className="item-bottom">完成订单</View>
+                        <View className="item-bottom">待报税</View>
+                      </View>
+                      <View className="bottom-item" onClick={this.handleComplete}>
+                        <View className="item-top">
+                          <Image src={allOrder} className="image"/>
+                        </View>
+                        <View className="item-bottom">报完成</View>
                       </View>
                     </View>
                 </View>
@@ -181,20 +200,7 @@ class Index extends Component {
           </View>
       </View>
       </View>
-      <View className="content">
-        <View className="content-item" onClick={this.handleTaxList}>
-          <View className="item">
-             <View className="icon-left">
-               <Image className="image" src={msg}/>
-             </View>
-             <View className="text-left">报税列表</View>
-             <View className="text-right">
-             </View>
-             <View className="icon-right">
-               <Image src={arrow} className="image"/>
-             </View>
-          </View>
-        </View>
+      <View className="content"> 
         <View className="content-item">
           <View className="item">
              <View className="icon-left">
