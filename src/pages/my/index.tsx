@@ -4,7 +4,7 @@ import { View,Image,} from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { add, minus, asyncAdd } from '../../actions/counter'
 import { userInfo,taxInfo } from '../../service/api'
-import { showToast } from '../../utils/tools'
+import { showToast,baseURL } from '../../utils/tools'
 import myHeader from '../../images/my_header.png'
 import avatar from '../../images/avatar.png'
 import allOrder from '../../images/all_order.png'
@@ -135,6 +135,8 @@ class Index extends Component {
 
   render () {
     let { userData,taxData } = this.state;
+    console.log(userData.user_img);
+
     return (
     <View className="my">
       <View className="header">
@@ -143,11 +145,11 @@ class Index extends Component {
               <Image className="image" src={myHeader}/>
             </View>
             <View className="header_avatar" onClick={this.handleToUser}>
-              <Image src={userData&&userData.avatarUrl ? userData.avatarUrl:avatar} className="avatar"/>
+              <Image src={userData&&userData.user_img ? `${baseURL}${userData.user_img}`:avatar} className="avatar"/>
             </View>
             <View className="header_user">
               <View className="user_name"></View>
-              <View className="user_address">呢称:{userData&&userData.userName}</View> 
+              <View className="user_address">呢称:{userData&&userData.user_name}</View> 
             </View>
            
           </View>

@@ -55,7 +55,7 @@ class Index extends Component {
     msg:"发送验证码",
     phone_code:"",
     disabled:false,
-    userName:"",
+    user_name:"",
   }
 
   componentWillReceiveProps (nextProps) {
@@ -87,13 +87,13 @@ class Index extends Component {
     })
   }
   handleRegister = async() => {
-    let { phone,password,phone_code,userName } = this.state;
-    if(phone && password && userName) {
+    let { phone,password,phone_code,user_name } = this.state;
+    if(phone && password && user_name) {
       let params = {
         phone,
         password,
         phone_code,
-        userName
+        user_name
       }
       let res = await userRegister(params);
       let data = res.data;
@@ -115,7 +115,7 @@ class Index extends Component {
     } else if(!password) {
       showToast({title:"密码不能为空",icon:""});
       return;
-    }else if(!userName) {
+    }else if(!user_name) {
       showToast({title:"呢称不能为空",icon:""});
 
     }
@@ -129,7 +129,7 @@ class Index extends Component {
   handleUserName = (ev) => {
     let value = ev.target.value;
     this.setState({
-      userName:value
+      user_name:value
     })
   }
   //倒计时
@@ -179,17 +179,17 @@ class Index extends Component {
           <View className="content">
             <View className="box">
               <View className="list">
-                <Input className="input" onChange={this.handlePhone} type='text' placeholder='请输入手机号'/>
+                <Input className="input" onInput={this.handlePhone} type='text' placeholder='请输入手机号'/>
               </View>
               <View className="list">
-                <Input className="input" onChange={this.handlePassword}  type='password' placeholder='请输入密码'/>
+                <Input className="input" onInput={this.handlePassword}  type='password' placeholder='请输入密码'/>
               </View>
               <View className="list">
-                <Input className="input" onChange={this.handleUserName}  type='text' placeholder='请输入呢称'/>
+                <Input className="input" onInput={this.handleUserName}  type='text' placeholder='请输入呢称'/>
               </View>
               <View className="code bottom">
                   <View className="list_left">
-                    <Input onChange={this.handlePhoneCode} className="input" maxLength="6" type="number" placeholder="请输入验证码"/>
+                    <Input onInput={this.handlePhoneCode} className="input" maxLength="6" type="number" placeholder="请输入验证码"/>
                   </View>
                   <View className="list_right" >
                      <Button style={{background:disabled?"#ccc":""}}  onClick={this.goGetCode} disabled={disabled} className="btn">{msg}</Button> 

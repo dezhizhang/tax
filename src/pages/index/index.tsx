@@ -136,10 +136,10 @@ class Index extends Component {
           <View className="content">
             <View className="box">
               <View className="list">
-                <Input className="input" onChange={this.handleUserName} type='text' placeholder='请输入手机号'/>
+                <Input className="input" onInput={this.handleUserName} type='text' placeholder='请输入手机号'/>
               </View>
               <View className="list bottom">
-                <Input className="input" onChange={this.handlePassword}  type='password' placeholder='请输入密码'/>
+                <Input className="input" onInput={this.handlePassword}  type='password' placeholder='请输入密码'/>
               </View>
               <View className="btngroup bottom" onClick={this.handleLogin}><Button className="btn">登 录</Button></View>
               <View className="btngroup" onClick={this.handleRegister}><Button className="btn reg">注 册</Button></View>
