@@ -67,6 +67,14 @@ class Index extends Component {
 
     handleEmail = (ev) => {
         let value = ev.target.value;
+        let reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/g
+        if(!reg.test(value)) {
+            showToast({
+                title:"输入邮箱不合法",
+                icon:"none"
+            })
+            return
+        }
         this.setState({
             email:value
         })
@@ -93,6 +101,9 @@ class Index extends Component {
                 showToast({
                     title:res.data.msg,
                     icon:"success"
+                })
+                Taro.switchTab({
+                    url:"../my/index"
                 })
             } else {
                 showToast({

@@ -68,7 +68,7 @@ export async function taxInfo(params) {
 }
 //增加反馈内容
 export async function addFeedBack(params) {
-  return request(`${Config.API_HOST}/api/v1/feedback/add`,{
+  return request(`${Config.API_HOST}/api/v1/back/add`,{
     method:"POST",
     body:params
   })
