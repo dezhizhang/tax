@@ -64,9 +64,9 @@ class Index extends Component {
   componentWillUnmount () { }
 
 
-  handleToLogin =() => {
+  handleToUser =() => {
     Taro.navigateTo({
-      url:'../login/index'
+      url:'../user/index'
     })
   }
   handleOrder = () => {
@@ -142,7 +142,7 @@ class Index extends Component {
             <View className="header_image">
               <Image className="image" src={myHeader}/>
             </View>
-            <View className="header_avatar" onClick={this.handleToLogin}>
+            <View className="header_avatar" onClick={this.handleToUser}>
               <Image src={userData&&userData.avatarUrl ? userData.avatarUrl:avatar} className="avatar"/>
             </View>
             <View className="header_user">
