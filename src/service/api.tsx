@@ -58,5 +58,9 @@ export async function taxList(params) {
 export async function uploadInfo(params) {
   return uploadFile(`${Config.API_HOST}/api/v1/tax/upload`,params);
 } 
+//报税信息
+export async function taxInfo(params) {
+  return request(`${Config.API_HOST}/api/v1/tax/info?tax_id=${params.tax_id}`)
+}
 
 

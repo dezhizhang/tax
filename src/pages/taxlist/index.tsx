@@ -83,7 +83,7 @@ class Index extends Component {
                   <View className="title">信用代码：{item.social_code}</View>
                   <View className="title">注册地址：{item.address}</View>
                   <View className="title">提醒时间：{item.inform_time}</View>
-                  <View className="title">状态：{item.status}</View>
+                  <View className="title">状态：{item.status==1 ? "完成":"未完成"}</View>
                 </View>
               </View>
               })

@@ -3,7 +3,7 @@ import Taro, { Component, Config } from '@tarojs/taro'
 import { View,Image,} from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { add, minus, asyncAdd } from '../../actions/counter'
-import { userInfo } from '../../service/api'
+import { userInfo,taxInfo } from '../../service/api'
 import { showToast } from '../../utils/tools'
 import myHeader from '../../images/my_header.png'
 import avatar from '../../images/avatar.png'
@@ -50,6 +50,7 @@ interface Index {
 class Index extends Component {
     state = {
       userData:{},
+      taxData:{},
     }
     config: Config = {
     navigationBarTitleText: '荣屿财税',
@@ -75,6 +76,7 @@ class Index extends Component {
   }
   componentDidMount() {
     this.getUserInfo();
+    this.getTaxInfo();
   }
   getUserInfo = async() => {
     let { data } = await Taro.getStorage({ key: 'id' });
@@ -86,7 +88,17 @@ class Index extends Component {
       })
     } else {
       
-      showToast({title:res.data.msg,icon:""});
+      showToast({title:res.data.msg,icon:"none"});
+    }
+  }
+  getTaxInfo = async() => {
+    let { data } = await Taro.getStorage({ key: 'id' });
+    let res = await taxInfo({'tax_id':data});
+    if(res.data.code == 200) {
+      let taxData = res.data.data;
+      this.setState({
+        taxData
+      })
     }
   }
   componentDidHide () { }
@@ -109,7 +121,7 @@ class Index extends Component {
   }
 
   render () {
-    let { userData } = this.state;
+    let { userData,taxData } = this.state;
     return (
     <View className="my">
       <View className="header">
@@ -132,20 +144,20 @@ class Index extends Component {
               <View className="info_box">
                 <View className="box_top">
                   <View className="top_item">
+                    <View className="item_top">总报税</View>
+                    <View className="item_bottom">{taxData&&taxData.total}</View>
+                  </View>
+                  <View className="top_item">
                     <View className="item_top">待报税</View>
-                    <View className="item_bottom">3</View>
+                    <View className="item_bottom">{taxData&&taxData.notTax}</View>
                   </View>
                   <View className="top_item">
                     <View className="item_top">报完成</View>
-                    <View className="item_bottom">3</View>
-                  </View>
-                  <View className="top_item">
-                    <View className="item_top">未完成</View>
-                    <View className="item_bottom">6</View>
+                    <View className="item_bottom">{taxData&&taxData.complete}</View>
                   </View>
                   <View className="top_item">
                     <View className="item_top">待评价</View>
-                    <View className="item_bottom">12</View>
+                    <View className="item_bottom">{taxData&&taxData.complete}</View>
                   </View>
                 </View>
                 <View className="box-bottom">
