@@ -170,9 +170,7 @@ class Index extends Component {
         }else if(!tempFilePaths) {
             showToast({title:"公司图片不能为空",icon:"none"})
         }
-       
     }
-
     render () {
         const { tempFilePaths,inform_time } = this.state;
         return (
