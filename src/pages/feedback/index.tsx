@@ -67,14 +67,7 @@ class Index extends Component {
 
     handleEmail = (ev) => {
         let value = ev.target.value;
-        let reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/g
-        if(!reg.test(value)) {
-            showToast({
-                title:"输入邮箱不合法",
-                icon:"none"
-            })
-            return
-        }
+       
         this.setState({
             email:value
         })
@@ -120,6 +113,17 @@ class Index extends Component {
             description:value
         })
     }
+    handleBlurEmail = (ev) => {
+        let value = ev.target.value;
+        let reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/g
+        if(!reg.test(value)) {
+            showToast({
+                title:"输入邮箱不合法",
+                icon:"none"
+            })
+            return
+        }
+    }
 
 
     render () {
@@ -130,7 +134,7 @@ class Index extends Component {
                     <View className="box">
                         <View className="list" style={{marginBottom:20}}>
                             <View className="left"><Text className="strong">*</Text><Text className="text">联系邮箱：</Text></View>
-                            <View className="right"><Input className="input" onInput={this.handleEmail} type="text" placeholder="请输入联系邮箱"/></View>
+                            <View className="right"><Input className="input" onBlur={this.handleBlurEmail} onInput={this.handleEmail} type="text" placeholder="请输入联系邮箱"/></View>
                         </View>
 
                         <View className="text" style={{marginBottom: 60}}>

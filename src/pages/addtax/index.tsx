@@ -95,14 +95,17 @@ class Index extends Component {
     }
     handlePhone = (ev) => {
         let value = ev.target.value;
+        this.setState({
+            phone:value
+        })
+    }
+    handleBlurPhone = (ev) => {
+        let value = ev.target.value;
         const reg = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/
         if(!reg.test(value)) {
             showToast({title:"手机号不合法",icon:"none"});
             return;
         }
-        this.setState({
-            phone:value
-        })
     }
     handleAddress = (ev) => {
         let value = ev.target.value;
@@ -186,7 +189,7 @@ class Index extends Component {
                         </View>
                         <View className="list">
                             <View className="left"><Text className="strong">*</Text><Text>接收电话：</Text></View>
-                            <View className="right"><Input onInput={this.handlePhone} className="input" type="text" placeholder="请输入接收电话"/></View>
+                            <View className="right"><Input onBlur={this.handleBlurPhone} onInput={this.handlePhone} className="input" type="text" placeholder="请输入接收电话"/></View>
                         </View>
                         <View className="list">
                             <View className="left"><Text className="strong">*</Text><Text>接收时间：</Text></View>
