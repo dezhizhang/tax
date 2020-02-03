@@ -80,6 +80,7 @@ class Index extends Component {
   }
   componentDidShow(){
     this.getUserInfo();
+    this.getTaxInfo();
   }
   getUserInfo = async() => {
     let { data } = await Taro.getStorage({ key: 'id' });
