@@ -84,32 +84,39 @@ class Index extends Component {
     if(phone && password) {
       let res = await userLogin(params);
       let data = res.data;
-      if(data.code == 200  && res.data.isReg) {
+      if(data.code == 200 && res.data.isReg) {
         let id = data.data._id;
-        Taro.setStorage({ key: 'id', data: id })
+        Taro.setStorage({ key: 'id', data: id });
         Taro.switchTab({
           url:'../home/index'
-        })
-      } else {
+        });
+      } else if(data.code == 200 && !res.data.isReg) {
         showToast({
           title:data.msg,
-          icon:" "
+          icon:"none"
         });
         Taro.navigateTo({
           url:"../register/index"
         });
+      } else {
+        showToast({
+          title:data.msg,
+          icon:"none"
+        });
       }
+
     } else if(!phone) {
-      showToast({
-        title:"手机号不能为空",
-        icon:""
-      })
+        showToast({
+          title:"手机号不能为空",
+          icon:"none"
+        })
     } else if(!password) {
       showToast({
         title:"密码不能为空",
-        icon:""
+        icon:"none"
       })
     }
+  
   }
   handleRegister = () => {
     Taro.navigateTo({
