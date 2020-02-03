@@ -69,16 +69,9 @@ class Index extends Component {
   componentDidHide () { }
   handlePhone = (ev) => {
     let value = ev.target.value;
-    let reg = /^((13[0-9])|(17[0-1,6-8])|(15[^4,\\D])|(18[0-9]))\d{8}$/;
-    if(!reg.test(value)) {
-      showToast({title:"手机号不合法",icon:"none"});
-      return;
-    } else {
-      this.setState({
-        phone:value
-      })
-    }
-   
+    this.setState({
+      phone:value
+    })
   }
   handlePassword = (ev) => {
     let value = ev.target.value;
@@ -168,6 +161,17 @@ class Index extends Component {
         showToast({title:"手机号不能为空",icon:'none'});
       }
   }
+  handleBlurName = (ev) => {
+    let value = ev.target.value;
+    let reg = /^((13[0-9])|(17[0-1,6-8])|(15[^4,\\D])|(18[0-9]))\d{8}$/;
+    if(!reg.test(value)) {
+      showToast({
+        title:"手机号不合法",
+        icon:" ",
+      });
+      return
+    }
+  }
 
   render () {
     const { msg,disabled } = this.state;
@@ -179,7 +183,7 @@ class Index extends Component {
           <View className="content">
             <View className="box">
               <View className="list">
-                <Input className="input" onInput={this.handlePhone} type='text' placeholder='请输入手机号'/>
+                <Input className="input" onBlur={this.handleBlurName} onInput={this.handlePhone} type='text' placeholder='请输入手机号'/>
               </View>
               <View className="list">
                 <Input className="input" onInput={this.handlePassword}  type='password' placeholder='请输入密码'/>

@@ -65,14 +65,6 @@ class Index extends Component {
   componentDidHide () { }
   handleUserName = (ev) => {
     let value = ev.target.value;
-    let reg = /^((13[0-9])|(17[0-1,6-8])|(15[^4,\\D])|(18[0-9]))\d{8}$/;
-    if(!reg.test(value)) {
-      showToast({
-        title:"手机号不合法",
-        icon:" ",
-      });
-      return
-    }
     this.setState({
       phone:value
     })
@@ -118,13 +110,22 @@ class Index extends Component {
         icon:""
       })
     }
-  
   }
-
   handleRegister = () => {
     Taro.navigateTo({
       url:"../register/index"
     });
+  }
+  handleBlurName = (ev) => {
+    let value = ev.target.value;
+    let reg = /^((13[0-9])|(17[0-1,6-8])|(15[^4,\\D])|(18[0-9]))\d{8}$/;
+    if(!reg.test(value)) {
+      showToast({
+        title:"手机号不合法",
+        icon:" ",
+      });
+      return
+    }
   }
 
   render () {
@@ -136,7 +137,7 @@ class Index extends Component {
           <View className="content">
             <View className="box">
               <View className="list">
-                <Input className="input" onInput={this.handleUserName} type='text' placeholder='请输入手机号'/>
+                <Input className="input" onBlur={this.handleBlurName} onInput={this.handleUserName} type='text' placeholder='请输入手机号'/>
               </View>
               <View className="list bottom">
                 <Input className="input" onInput={this.handlePassword}  type='password' placeholder='请输入密码'/>
