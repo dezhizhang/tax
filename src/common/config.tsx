@@ -1,6 +1,6 @@
 const config = {
     development: {
-      API_HOST: 'http://192.168.101.7:7001',
+      API_HOST: 'https://www.roogye.com',
       HOST_TITLE: '(开发环境)',
       QINIU_KEY: '',
       BAIDU_MAP_AK: '',
@@ -12,7 +12,7 @@ const config = {
       WECHAT_APP_ID: ''
     },
     staging: {
-      API_HOST: 'https://www.eureka.net.cn',
+      API_HOST: 'https://www.roogye.com',
       HOST_TITLE: '(测试环境)',
       QINIU_KEY: '',
       BAIDU_MAP_AK: '',
@@ -24,7 +24,7 @@ const config = {
       WECHAT_APP_ID: ''
     },
     production: {
-      API_HOST: 'https://www.eureka.net.cn',
+      API_HOST: 'https://www.roogye.com/',
       HOST_TITLE: '(生产环境)',
       QINIU_KEY: '',
       BAIDU_MAP_AK: '',
