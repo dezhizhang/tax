@@ -1,6 +1,6 @@
 const config = {
     development: {
-      API_HOST: 'https://www.roogye.com',
+      API_HOST: 'http://127.0.0.1:8082',
       HOST_TITLE: '(开发环境)',
       QINIU_KEY: '',
       BAIDU_MAP_AK: '',

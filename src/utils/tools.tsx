@@ -1,4 +1,4 @@
-export const baseURL = 'https://www.roogye.com'
+export const baseURL = 'http://127.0.0.1:8082'
 import Taro from '@tarojs/taro'
 
 //提示
