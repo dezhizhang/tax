@@ -20,7 +20,6 @@ class App extends Component {
       "pages/user/index",
       "pages/feedback/index",
       "pages/my/index",
-    
     ],
     window: {
       backgroundTextStyle: 'light',
