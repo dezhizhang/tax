@@ -1,12 +1,10 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Button,Input,Image,Text,Picker } from '@tarojs/components'
+import { View, Button,Input,Text,Picker } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { add, minus, asyncAdd } from '../../actions/counter'
 import { uploadInfo } from '../../service/api'
 import { showToast,showLoading,hideLoading } from '../../utils/tools'
-import upload from '../../images/upload.png'
-import server from '../../images/server.png'
 import './index.less'
 
 type PageStateProps = {
@@ -206,17 +204,6 @@ class Index extends Component {
                         <View className="list">
                             <View className="left"><Text className="strong">*</Text><Text>联系人：</Text></View>
                             <View className="right"><Input onInput={this.hanldeContact} className="input" type="text" placeholder="请输入联系人"/></View>
-                        </View>
-                        <View className="list" style={{borderBottom:'none'}}>
-                            <View className="left"><Text className="strong">*</Text><Text>公司图片</Text></View>
-                        </View>
-                        <View className="image" style={{marginBottom:'60px'}}>
-                            <View className="left" onClick={this.handleChooseImage}>
-                            <Image src={tempFilePaths ? tempFilePaths:upload} className="upload"/>
-                            </View>
-                            <View className="right">
-                                <Image src={server} className="upload"/>
-                            </View>
                         </View>
                         <View>
                             <Button onClick={this.handleSubmit} className="submit">确　定</Button>
