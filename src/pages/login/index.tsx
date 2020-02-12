@@ -2,7 +2,7 @@ import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Button } from '@tarojs/components'
 import { userLogin } from '../../service/api'
-import { showModal,userInfoId } from '../../utils/tools'
+import { showModal } from '../../utils/tools'
 import { connect } from '@tarojs/redux'
 import { add, minus, asyncAdd } from '../../actions/counter'
 import  './index.less'
@@ -73,8 +73,8 @@ class Index extends Component {
               userLogin(params).then(res => {
                   if(res.data.code == 200) {
                     let result = res.data.data;
-                    let userInfoKey = JSON.stringify(result);
-                    Taro.setStorageSync('userInfoKey', userInfoKey);
+                    let { openid } = result;
+                    Taro.setStorageSync('openid', openid);
                   }
               })
             })
@@ -92,10 +92,9 @@ class Index extends Component {
   }
   bindGetUserInfo = (ev) => {
     if(ev.detail.userInfo){
-    //   let result  = ev.detail.userInfo;
-    //   result.userId = userInfoId(6);
-    //   let userInfo = JSON.stringify(result);
-    //   Taro.setStorageSync('userInfo', userInfo);
+      let result  = ev.detail.userInfo;
+      let userInfo = JSON.stringify(result);
+      Taro.setStorageSync('userInfo', userInfo);
       Taro.switchTab({
         url:'../my/index'
       });

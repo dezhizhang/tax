@@ -103,7 +103,7 @@ class Index extends Component {
         })
     }
     handleSubmit = async() => {
-        let { data } = await Taro.getStorage({ key: 'id' });
+        let  openid  = await Taro.getStorageSync("openid");
         const { company_name,phone,address,contact,social_code} = this.state;
         if(company_name&&phone&&address&&contact&&social_code) {
             const params = {
@@ -111,25 +111,22 @@ class Index extends Component {
                 contact,
                 address,
                 social_code,
-               
                 company_name,
-                tax_id:data,
-                name:'company_img'
+                tax_id:openid,
             }
-            showLoading({title:'信息上传中'});
-            // uploadInfo(params).then(res => {
-            //     let data = JSON.parse(res.data);
-            //     if(data.code == 200) {
-            //       hideLoading();
-            //       showToast({
-            //         title:res.data.msg,
-            //         icon:'success'
-            //       });
-            //       Taro.switchTab({
-            //         url: '../my/index'
-            //       });
-            //     }
-            // })
+            showLoading({title:'信息提交中'});
+            uploadInfo(params).then(res => {
+                if(res.data.code == 200) {
+                  hideLoading();
+                  showToast({
+                    title:"信息上传成功",
+                    icon:'success'
+                  });
+                  Taro.switchTab({
+                    url: '../my/index'
+                  });
+                }
+            })
         }
         else if(!company_name) {
             showToast({title:"公司名称不能为空",icon:"none"})

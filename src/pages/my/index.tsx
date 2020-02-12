@@ -81,22 +81,17 @@ class Index extends Component {
     this.getUserInfo();
     this.getTaxInfo();
   }
+ 
   getUserInfo = async() => {
-    let { data } = await Taro.getStorage({ key: 'id' });
-    let res = await userInfo({id:data});
-    if(res.data.code == 200) {
-      let userData = res.data.data;
-      this.setState({
-        userData
-      })
-    } else {
-      
-      showToast({title:res.data.msg,icon:"none"});
-    }
+    let userInfo =  await Taro.getStorageSync('userInfo');
+    let userData =userInfo ?  JSON.parse(userInfo):{}
+    this.setState({
+      userData
+    })
   }
   getTaxInfo = async() => {
-    let { data } = await Taro.getStorage({ key: 'id' });
-    let res = await taxInfo({'tax_id':data});
+    let  openid  = await Taro.getStorageSync("openid");
+    let res = await taxInfo({'tax_id':openid});
     if(res.data.code == 200) {
       let taxData = res.data.data;
       this.setState({
@@ -111,10 +106,18 @@ class Index extends Component {
     });
   }
   //添加报税
-  handleAddTax = () => {
-    Taro.navigateTo({
-      url:"../addtax/index"
-    })
+  handleAddTax = async() => {
+    let  openid  = await Taro.getStorageSync("openid");
+    if(openid) {
+      Taro.navigateTo({
+        url:"../addtax/index"
+      })
+    } else {
+      Taro.navigateTo({
+        url:'../login/index'
+      })
+    }
+  
   }
   //所有报税列表
   handleAllList = () => {
@@ -140,6 +143,7 @@ class Index extends Component {
       url:"../feedback/index"
     })
   }
+ 
   render () {
     let { userData,taxData } = this.state;
     return (
@@ -150,11 +154,11 @@ class Index extends Component {
               <Image className="image" src={myHeader}/>
             </View>
             <View className="header_avatar" onClick={this.handleToUser}>
-              <Image src={userData&&userData.user_img ? `${baseURL}${userData.user_img}`:avatar} className="avatar"/>
+              <Image src={userData&&userData.avatarUrl ? `${userData.avatarUrl}`:avatar} className="avatar"/>
             </View>
             <View className="header_user">
               <View className="user_name"></View>
-              <View className="user_address">呢称:{userData&&userData.user_name}</View> 
+              <View className="user_address">呢称:{userData&&userData.nickName}</View> 
             </View>
            
           </View>

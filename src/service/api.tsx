@@ -29,7 +29,10 @@ export async function userRegister(params) {
 }
 //用户登录
 export async function userLogin(params) {
-  return request(`${Config.API_HOST}/api/v1/user/login?code=${params.code}&appid=${params.appid}`)
+  return request(`${Config.API_HOST}/api/v1/user/login`,{
+    method:"POST",
+    body:params
+  })
 }
 //公司列表
 export async function companyList(params) {
@@ -53,7 +56,10 @@ export async function taxList(params) {
 }
 //报税提交
 export async function uploadInfo(params) {
-  return uploadFile(`${Config.API_HOST}/api/v1/tax/upload`,params);
+  return request(`${Config.API_HOST}/api/v1/tax/add`,{
+    method:'POST',
+    body:params
+  });
 } 
 //修改用户信息
 export async function updateUser(params) {
