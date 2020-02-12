@@ -1,6 +1,6 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Button,Input,Text,Picker } from '@tarojs/components'
+import { View, Button,Input,Text } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { add, minus, asyncAdd } from '../../actions/counter'
 import { uploadInfo } from '../../service/api'
@@ -54,7 +54,6 @@ class Index extends Component {
         address:"",
         contact:"",
         social_code:"",
-        inform_time:"请选择接收时间"
     }
 
     componentWillReceiveProps (nextProps) {
@@ -103,22 +102,16 @@ class Index extends Component {
             contact:value
         })
     }
-    onTimeChange = (ev) => {
-        let value = ev.detail.value;
-        this.setState({
-            inform_time:value
-        })
-    }
     handleSubmit = async() => {
         let { data } = await Taro.getStorage({ key: 'id' });
-        const { company_name,phone,address,contact,social_code,inform_time} = this.state;
-        if(company_name&&phone&&address&&contact&&social_code&&inform_time&&inform_time!="请选择接收时间") {
+        const { company_name,phone,address,contact,social_code} = this.state;
+        if(company_name&&phone&&address&&contact&&social_code) {
             const params = {
                 phone,
                 contact,
                 address,
                 social_code,
-                inform_time,
+               
                 company_name,
                 tax_id:data,
                 name:'company_img'
@@ -144,8 +137,6 @@ class Index extends Component {
             showToast({title:"信用代码不能为空",icon:"none"});
         } else if(!phone) {
             showToast({title:"接收电话不能为空",icon:"none"});
-        } else if(!inform_time && inform_time!='请选择接收时间') {
-            showToast({title:"接收时间不能为空",icon:"none"});
         }else if(!address) {
             showToast({title:"注册地址不能为空",icon:"none"});
         } else if(!contact) {
@@ -153,7 +144,7 @@ class Index extends Component {
         }
     }
     render () {
-        const { inform_time } = this.state;
+       
         return (
             <View className='addtax'>
                 <View className="wrapper">
@@ -167,22 +158,12 @@ class Index extends Component {
                             <View className="right"><Input className="input" onInput={this.handleSocialCode}  type="text" placeholder="请输入信用代码"/></View>
                         </View>
                         <View className="list">
-                            <View className="left"><Text className="strong">*</Text><Text>接收电话：</Text></View>
-                            <View className="right"><Input onBlur={this.handleBlurPhone} onInput={this.handlePhone} className="input" type="text" placeholder="请输入接收电话"/></View>
-                        </View>
-                        <View className="list">
-                            <View className="left"><Text className="strong">*</Text><Text>接收时间：</Text></View>
-                            <View className="right"> 
-                            <Picker mode='date' onChange={this.onTimeChange} placeholder="请选择接收时间">
-                                <View className='picker' style={{color:inform_time=="请选择接收时间" ? '#999':""}}>
-                                  {inform_time}
-                                </View>
-                            </Picker>
-                            </View>
-                        </View>
-                        <View className="list">
                             <View className="left"><Text className="strong">*</Text><Text>注册地址：</Text></View>
                             <View className="right"><Input onInput={this.handleAddress} className="input" type="text" placeholder="请输入注册地址"/></View>
+                        </View>
+                        <View className="list">
+                            <View className="left"><Text className="strong">*</Text><Text>接收电话：</Text></View>
+                            <View className="right"><Input onBlur={this.handleBlurPhone} onInput={this.handlePhone} className="input" type="text" placeholder="请输入接收电话"/></View>
                         </View>
                         <View className="list" style={{marginBottom:60}}>
                             <View className="left"><Text className="strong">*</Text><Text>联系人：</Text></View>
