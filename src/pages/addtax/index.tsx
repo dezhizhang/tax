@@ -49,7 +49,6 @@ class Index extends Component {
     
     }
     state = {
-        tempFilePaths:"",
         company_name:"",
         phone:"",
         address:"",
@@ -61,19 +60,6 @@ class Index extends Component {
     componentWillReceiveProps (nextProps) {
         console.log(this.props, nextProps)
     }
-    handleChooseImage = () => {
-        let that = this;
-        const params = {
-        count:1,
-        sizeType:['original', 'compressed'],
-        sourceType: ['album', 'camera']
-        }
-        Taro.chooseImage(params).then(res => {
-        const tempFilePaths = res.tempFilePaths[0]; 
-        that.setState({ tempFilePaths });
-        })
-    }
-
     componentWillUnmount () { }
 
     componentDidShow () { }
@@ -125,8 +111,8 @@ class Index extends Component {
     }
     handleSubmit = async() => {
         let { data } = await Taro.getStorage({ key: 'id' });
-        const { tempFilePaths,company_name,phone,address,contact,social_code,inform_time} = this.state;
-        if(tempFilePaths&&company_name&&phone&&address&&contact&&social_code&&inform_time&&inform_time!="请选择接收时间") {
+        const { company_name,phone,address,contact,social_code,inform_time} = this.state;
+        if(company_name&&phone&&address&&contact&&social_code&&inform_time&&inform_time!="请选择接收时间") {
             const params = {
                 phone,
                 contact,
@@ -134,7 +120,6 @@ class Index extends Component {
                 social_code,
                 inform_time,
                 company_name,
-                tempFilePaths,
                 tax_id:data,
                 name:'company_img'
             }
@@ -165,12 +150,10 @@ class Index extends Component {
             showToast({title:"注册地址不能为空",icon:"none"});
         } else if(!contact) {
             showToast({title:"联系人不能为空",icon:"none"});
-        }else if(!tempFilePaths) {
-            showToast({title:"公司图片不能为空",icon:"none"})
         }
     }
     render () {
-        const { tempFilePaths,inform_time } = this.state;
+        const { inform_time } = this.state;
         return (
             <View className='addtax'>
                 <View className="wrapper">
@@ -201,7 +184,7 @@ class Index extends Component {
                             <View className="left"><Text className="strong">*</Text><Text>注册地址：</Text></View>
                             <View className="right"><Input onInput={this.handleAddress} className="input" type="text" placeholder="请输入注册地址"/></View>
                         </View>
-                        <View className="list">
+                        <View className="list" style={{marginBottom:60}}>
                             <View className="left"><Text className="strong">*</Text><Text>联系人：</Text></View>
                             <View className="right"><Input onInput={this.hanldeContact} className="input" type="text" placeholder="请输入联系人"/></View>
                         </View>
