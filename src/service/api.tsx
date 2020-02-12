@@ -29,10 +29,7 @@ export async function userRegister(params) {
 }
 //用户登录
 export async function userLogin(params) {
-  return request(`${Config.API_HOST}/api/v1/user/login`,{
-    method:"POST",
-    body:params
-  })
+  return request(`${Config.API_HOST}/api/v1/user/login?code=${params.code}&appid=${params.appid}`)
 }
 //公司列表
 export async function companyList(params) {

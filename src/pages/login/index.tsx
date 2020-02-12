@@ -49,7 +49,7 @@ class Index extends Component {
     config: Config = {
         navigationBarTitleText: '荣屿财税',
         navigationBarBackgroundColor:"#5C86FF"
-    }
+  }
 
   componentWillReceiveProps (nextProps) {
     console.log(this.props, nextProps)
@@ -68,7 +68,7 @@ class Index extends Component {
             Taro.login().then(res => {
               let params = {
                 code:res.code,
-                appid:'wx070d1456a4a9c0fb',
+                appid:'wxd9d0c9664d688f92',
               }
               userLogin(params).then(res => {
                   if(res.data.code == 200) {
@@ -92,10 +92,10 @@ class Index extends Component {
   }
   bindGetUserInfo = (ev) => {
     if(ev.detail.userInfo){
-      let result  = ev.detail.userInfo;
-      result.userId = userInfoId(6);
-      let userInfo = JSON.stringify(result);
-      Taro.setStorageSync('userInfo', userInfo);
+    //   let result  = ev.detail.userInfo;
+    //   result.userId = userInfoId(6);
+    //   let userInfo = JSON.stringify(result);
+    //   Taro.setStorageSync('userInfo', userInfo);
       Taro.switchTab({
         url:'../my/index'
       });
