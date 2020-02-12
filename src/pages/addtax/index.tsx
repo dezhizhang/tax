@@ -44,9 +44,9 @@ interface Index {
 }))
 class Index extends Component {
     config: Config = {
-    navigationBarTitleText: '荣屿财税',
-    navigationBarBackgroundColor:"#5C86FF"
-    
+        navigationBarTitleText: '荣屿财税',
+        navigationBarBackgroundColor:"#5C86FF"
+        
     }
     state = {
         company_name:"",
@@ -117,19 +117,19 @@ class Index extends Component {
                 name:'company_img'
             }
             showLoading({title:'信息上传中'});
-            uploadInfo(params).then(res => {
-                let data = JSON.parse(res.data);
-                if(data.code == 200) {
-                  hideLoading();
-                  showToast({
-                    title:'上传成功',
-                    icon:'success'
-                  });
-                  Taro.switchTab({
-                    url: '../my/index'
-                  });
-                }
-            })
+            // uploadInfo(params).then(res => {
+            //     let data = JSON.parse(res.data);
+            //     if(data.code == 200) {
+            //       hideLoading();
+            //       showToast({
+            //         title:res.data.msg,
+            //         icon:'success'
+            //       });
+            //       Taro.switchTab({
+            //         url: '../my/index'
+            //       });
+            //     }
+            // })
         }
         else if(!company_name) {
             showToast({title:"公司名称不能为空",icon:"none"})
@@ -165,7 +165,7 @@ class Index extends Component {
                             <View className="left"><Text className="strong">*</Text><Text>接收电话：</Text></View>
                             <View className="right"><Input onBlur={this.handleBlurPhone} onInput={this.handlePhone} className="input" type="text" placeholder="请输入接收电话"/></View>
                         </View>
-                        <View className="list" style={{marginBottom:60}}>
+                        <View className="list bottom">
                             <View className="left"><Text className="strong">*</Text><Text>联系人：</Text></View>
                             <View className="right"><Input onInput={this.hanldeContact} className="input" type="text" placeholder="请输入联系人"/></View>
                         </View>

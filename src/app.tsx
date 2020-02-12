@@ -17,9 +17,9 @@ class App extends Component {
       "pages/contact/index",
       "pages/addtax/index",
       "pages/taxlist/index",
-      "pages/user/index",
       "pages/feedback/index",
       "pages/my/index",
+      "pages/login/index",
     ],
     window: {
       backgroundTextStyle: 'light',

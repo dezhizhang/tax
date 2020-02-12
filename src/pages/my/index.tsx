@@ -63,10 +63,9 @@ class Index extends Component {
 
   componentWillUnmount () { }
 
-
   handleToUser =() => {
     Taro.navigateTo({
-      url:'../user/index'
+      url:'../login/index'
     })
   }
   handleOrder = () => {
