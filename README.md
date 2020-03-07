@@ -1,5 +1,6 @@
 # 报税系统
 ### 目录结构
+```
 +tax/
 +----            ------config配配文件
 +----            ------dist编译后的可执行文件
@@ -8,6 +9,7 @@
 +--src/          ------pages存放页面
 +--src/          ------service存放请求api
 +--src/          ------utils存放一些公共方法
+```
 ### 下载依赖
 ```
 npm install 或 cnpm install 
@@ -21,6 +23,8 @@ npm start 或yarn start
 ```
 https://github.com/dezhizhang/taxcms
 ```
+### 如果在使用过程序遇到问题可以联系作者
+微信:15083356190,qq号:1541609448,邮箱:1541609448@qq.com
 
 
 
